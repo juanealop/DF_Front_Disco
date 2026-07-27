@@ -1,0 +1,15 @@
+<button
+  class="app-button"
+  [type]="type"
+  [disabled]="disabled || loading"
+  (click)="onClick()">
+
+  @if (!loading) {
+    <span>{{ text }}</span>
+  }
+
+  @if (loading) {
+    <span class="spinner"></span>
+  }
+
+</button>  
