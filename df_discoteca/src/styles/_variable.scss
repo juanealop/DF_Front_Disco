@@ -1,0 +1,68 @@
+// ============================================================
+// COLORES BASE
+// ============================================================
+
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-primary: #ff1e43;
+$color-primary-light: #ff3253;
+$color-primary-dark: #d91438;
+
+$color-gray: #9e9e9e;
+
+
+// ============================================================
+// COLORES SEMÁNTICOS
+// ============================================================
+
+$color-success: #00c853;
+$color-warning: #ffab00;
+$color-error: $color-primary;
+$color-info: #2979ff;
+
+
+// ============================================================
+// BOTONES
+// ============================================================
+
+$button-background: $color-primary;
+$button-background-hover: $color-primary-light;
+$button-background-active: $color-primary-dark;
+$button-text: $color-white;
+
+$button-disabled-opacity: 0.6;
+
+$button-shadow-hover: 0 12px 24px rgba($color-primary, 0.25);
+
+
+// ============================================================
+// INPUTS
+// ============================================================
+
+$input-background: $color-black;
+$input-border: $color-primary;
+$input-text: $color-white;
+$input-placeholder: $color-gray;
+
+
+// ============================================================
+// INPUTS / TEXTFIELD
+// ============================================================
+
+$input-background: $color-black;
+$input-border: $color-primary;
+$input-text: $color-white;
+$input-placeholder: $color-gray;
+
+$input-border-width: 2px;
+$input-border-radius: 20px;
+
+$input-focus-shadow: 0 0 8px rgba($color-primary, 0.25);
+
+
+// ============================================================
+// SOMBRAS / EFECTOS
+// ============================================================
+
+$shadow-primary: 0 0 8px rgba($color-primary, 0.25);
