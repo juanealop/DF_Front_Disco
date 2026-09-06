@@ -249,6 +249,32 @@
 
     transform: translateY(0);
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================================
+// ERROR DE LOGIN
+// ============================================================
+
+.login-error {
+  margin-top: 24px;
+
+  padding: 14px 18px;
+
+  border: 1px solid rgba($color-error, 0.55);
+  border-radius: 14px;
+
+  background-color: rgba($color-error, 0.12);
+
+  color: $color-white;
+
+  font-size: 16px;
+
+  text-align: center;
 }
 
 // ============================================================

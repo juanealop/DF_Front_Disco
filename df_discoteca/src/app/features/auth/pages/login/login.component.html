@@ -45,6 +45,7 @@
             [(ngModel)]="email"
             placeholder="Ingresa tu correo"
             autocomplete="email"
+            required
           />
 
         </div>
@@ -64,6 +65,7 @@
             [(ngModel)]="password"
             placeholder="Ingresa tu contraseña"
             autocomplete="current-password"
+            required
           />
 
         </div>
@@ -73,9 +75,17 @@
         <button
           type="submit"
           class="login-button"
+          [disabled]="cargando"
         >
-          Ingresar
+          {{ cargando ? 'Ingresando…' : 'Ingresar' }}
         </button>
+
+        <!-- ERROR -->
+        @if (error) {
+          <div class="login-error">
+            {{ error }}
+          </div>
+        }
 
       </form>
 
