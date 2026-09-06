@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { RegistroDiscotecaStateService } from '../../../services/registro-discoteca-state.service';
+import { RegistroDiscotecaStateService } from '../registro-discoteca-state.service';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { TextfieldComponent } from '../../../../../shared/components/textfield/textfield.component';
 

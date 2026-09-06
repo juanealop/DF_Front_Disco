@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { CrearDiscotecaDTO } from '../../../../../core/dtos/discoteca/discoteca-create.dto';
 import { Discoteca } from '../../../../../core/models/discoteca.model';
 import { DiscotecaService } from '../../../../../core/services/discoteca/discoteca.service';
-import { InfoRegistroDiscoteca, RegistroDiscotecaStateService } from '../../../services/registro-discoteca-state.service';
+import { InfoRegistroDiscoteca, RegistroDiscotecaStateService } from '../registro-discoteca-state.service';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { TextfieldComponent } from '../../../../../shared/components/textfield/textfield.component';
 
