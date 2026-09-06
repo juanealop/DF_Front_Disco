@@ -1,1 +1,174 @@
-<p>register-info works!</p>
+<div class="register-page">
+
+  <!-- PORTADA -->
+  <section class="register-cover">
+    <img
+      src="/assets/images/login_2_portada_df_disco.jpg"
+      alt="DF Partners"
+      class="register-cover__image"
+    />
+    <div class="register-cover__overlay"></div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="register-form-container">
+
+    <div class="register-form">
+
+      <!-- HEADER -->
+      <header class="register-form__header">
+
+        <span class="register-form__step">
+          Paso 1 de 2
+        </span>
+
+        <h2>Información de tu discoteca</h2>
+
+        <p>
+          Completa los datos básicos para crear tu cuenta.
+        </p>
+
+      </header>
+
+      <!-- FORMULARIO -->
+      <form (ngSubmit)="continuar()">
+
+        <div class="register-fields">
+
+          <!-- NOMBRE -->
+          <app-textfield
+            class="register-field register-field--full"
+            name="nombre"
+            label="Nombre de la discoteca"
+            placeholder="Ej. DF Temple"
+            autocomplete="organization"
+            [(ngModel)]="nombre"
+            [required]="true"
+            [maxlength]="120"
+          />
+
+          <!-- DESCRIPCIÓN -->
+          <app-textfield
+            class="register-field register-field--full"
+            name="descripcion"
+            label="Descripción"
+            placeholder="Cuéntanos sobre tu discoteca (opcional)"
+            autocomplete="off"
+            [(ngModel)]="descripcion"
+            [multiline]="true"
+            [maxlength]="500"
+          />
+
+          <!-- TELÉFONO -->
+          <app-textfield
+            class="register-field"
+            name="telefono"
+            label="Teléfono"
+            type="tel"
+            placeholder="Ej. 300 123 4567"
+            autocomplete="tel"
+            [(ngModel)]="telefono"
+            [required]="true"
+            [pattern]="'^[0-9+()\\- ]{7,20}$'"
+            [maxlength]="20"
+          />
+
+          <!-- CORREO -->
+          <app-textfield
+            class="register-field"
+            name="email"
+            label="Correo electrónico"
+            type="email"
+            placeholder="correo@discoteca.com"
+            autocomplete="email"
+            [(ngModel)]="email"
+            [required]="true"
+            [maxlength]="120"
+          />
+
+          <!-- DIRECCIÓN -->
+          <app-textfield
+            class="register-field"
+            name="direccion"
+            label="Dirección"
+            placeholder="Calle 123 # 45 - 67"
+            autocomplete="street-address"
+            [(ngModel)]="direccion"
+            [required]="true"
+            [maxlength]="200"
+          />
+
+          <!-- CONTRASEÑA -->
+          <app-textfield
+            class="register-field"
+            name="contrasena"
+            label="Contraseña"
+            type="password"
+            placeholder="Mínimo 6 caracteres"
+            autocomplete="new-password"
+            [(ngModel)]="contrasena"
+            [required]="true"
+            [minlength]="6"
+            [maxlength]="60"
+          />
+
+          <!-- PAÍS -->
+          <app-textfield
+            class="register-field"
+            name="pais"
+            label="País"
+            placeholder="Ej. Colombia"
+            autocomplete="country-name"
+            [(ngModel)]="pais"
+            [required]="true"
+            [maxlength]="80"
+          />
+
+          <!-- CIUDAD -->
+          <app-textfield
+            class="register-field"
+            name="ciudad"
+            label="Ciudad"
+            placeholder="Ej. Medellín"
+            autocomplete="address-level2"
+            [(ngModel)]="ciudad"
+            [required]="true"
+            [maxlength]="80"
+          />
+
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="register-actions">
+
+          <app-button
+            type="submit"
+            text="Continuar al pago"
+          />
+
+        </div>
+
+      </form>
+
+      <!-- LOGIN -->
+      <div class="register-redirect">
+
+        <span>
+          ¿Ya tienes cuenta?
+        </span>
+
+        <button
+          type="button"
+          class="register-link"
+          (click)="irAlLogin()"
+        >
+          Inicia sesión
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

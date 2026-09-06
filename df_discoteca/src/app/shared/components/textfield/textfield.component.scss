@@ -1,6 +1,33 @@
-@use '../../../styles/variables' as *;
+@use '../../../../styles/variable' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
 
 .textfield {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+// ============================================================
+// LABEL
+// ============================================================
+
+.textfield__label {
+  color: $color-white;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+// ============================================================
+// CONTROL
+// ============================================================
+
+.textfield__control {
   width: 100%;
   height: 84px;
 
@@ -14,7 +41,7 @@
   border: $input-border-width solid $input-border;
   border-radius: $input-border-radius;
 
-  font-family: Arial, sans-serif;
+  font-family: inherit;
   font-size: 22px;
 
   outline: none;
@@ -28,7 +55,27 @@
   }
 
   &:focus {
-    border-color: $input-border;
+    border-color: $color-primary-light;
     box-shadow: $input-focus-shadow;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================================
+// TEXTAREA
+// ============================================================
+
+textarea.textfield__control {
+  height: auto;
+  min-height: 150px;
+
+  padding: 22px 24px;
+
+  line-height: 1.5;
+
+  resize: vertical;
 }

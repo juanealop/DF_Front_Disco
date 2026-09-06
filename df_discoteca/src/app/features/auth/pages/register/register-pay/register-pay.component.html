@@ -1,1 +1,170 @@
-<p>register-pay works!</p>
+<div class="register-page">
+
+  <!-- PORTADA -->
+  <section class="register-cover">
+    <img
+      src="/assets/images/login_portada_df_disco.jpeg"
+      alt="DF Partners"
+      class="register-cover__image"
+    />
+    <div class="register-cover__overlay"></div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="register-form-container">
+
+    <div class="register-form">
+
+      <!-- HEADER -->
+      <header class="register-form__header">
+
+        <span class="register-form__step">
+          Paso 2 de 2
+        </span>
+
+        <h2>Método de pago</h2>
+
+        <p>
+          Ingresa los datos de tu tarjeta para completar el registro.
+        </p>
+
+      </header>
+
+      <!-- REGISTRO EXITOSO -->
+      @if (discotecaRegistrada) {
+
+        <div class="register-success">
+
+          <h3>¡Registro exitoso!</h3>
+
+          <p>
+            Tu discoteca <strong>{{ discotecaRegistrada.nombre }}</strong>
+            ya está registrada en DF Partners.
+          </p>
+
+          <app-button
+            text="Iniciar sesión"
+            (clicked)="irAlLogin()"
+          />
+
+        </div>
+
+      } @else if (hayInfo) {
+
+        <!-- FORMULARIO -->
+        <form (ngSubmit)="registrar()">
+
+          <div class="register-fields">
+
+            <!-- NÚMERO DE TARJETA -->
+            <app-textfield
+              class="register-field register-field--full"
+              name="numeroTarjeta"
+              label="Número de tarjeta"
+              placeholder="0000 0000 0000 0000"
+              autocomplete="cc-number"
+              inputmode="numeric"
+              [(ngModel)]="numeroTarjeta"
+              [required]="true"
+              [pattern]="'^[0-9]{13,19}$'"
+              [maxlength]="19"
+            />
+
+            <!-- TITULAR -->
+            <app-textfield
+              class="register-field register-field--full"
+              name="titular"
+              label="Titular de la tarjeta"
+              placeholder="Nombre como aparece en la tarjeta"
+              autocomplete="cc-name"
+              [(ngModel)]="titular"
+              [required]="true"
+              [maxlength]="120"
+            />
+
+            <!-- FECHA DE EXPIRACIÓN -->
+            <app-textfield
+              class="register-field"
+              name="fechaExpiracion"
+              label="Fecha de expiración"
+              placeholder="MM/AA"
+              autocomplete="cc-exp"
+              [(ngModel)]="fechaExpiracion"
+              [required]="true"
+              [pattern]="'^(0[1-9]|1[0-2])/[0-9]{2}$'"
+              [maxlength]="5"
+            />
+
+            <!-- CVV -->
+            <app-textfield
+              class="register-field"
+              name="cvv"
+              label="CVV"
+              type="password"
+              placeholder="123"
+              autocomplete="cc-csc"
+              inputmode="numeric"
+              [(ngModel)]="cvv"
+              [required]="true"
+              [pattern]="'^[0-9]{3,4}$'"
+              [maxlength]="4"
+            />
+
+          </div>
+
+          <!-- ERROR -->
+          @if (error) {
+            <div class="register-error">
+              {{ error }}
+            </div>
+          }
+
+          <!-- ACCIONES -->
+          <div class="register-actions">
+
+            <app-button
+              type="submit"
+              text="Crear cuenta"
+              [loading]="cargando"
+            />
+
+          </div>
+
+        </form>
+
+        <!-- VOLVER AL PASO 1 -->
+        <div class="register-back">
+
+          <button
+            type="button"
+            class="register-link"
+            (click)="volverAlPaso1()"
+          >
+            ← Volver a la información
+          </button>
+
+        </div>
+
+      } @else {
+
+        <!-- SIN INFORMACIÓN DEL PASO ANTERIOR -->
+        <div class="register-missing">
+
+          <p>
+            No encontramos la información del paso anterior.
+          </p>
+
+          <app-button
+            text="Volver al paso 1"
+            (clicked)="volverAlPaso1()"
+          />
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>

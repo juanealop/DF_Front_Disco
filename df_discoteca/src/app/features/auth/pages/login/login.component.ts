@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 
+  constructor(private readonly router: Router) {}
+
   // ============================================================
   // DATOS DEL FORMULARIO
   // ============================================================
@@ -17,7 +20,6 @@ export class LoginComponent {
   email: string = '';
 
   password: string = '';
-
 
   // ============================================================
   // LOGIN
@@ -30,17 +32,12 @@ export class LoginComponent {
 
   }
 
-  //hola
-
   // ============================================================
   // REGISTRO
   // ============================================================
 
   goToRegister(): void {
-
-    // TODO:
-    // Navegar hacia la página de registro.
-
+    void this.router.navigate(['/register/info']);
   }
 
 }

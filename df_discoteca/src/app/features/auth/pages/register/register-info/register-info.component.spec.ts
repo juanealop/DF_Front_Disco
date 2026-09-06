@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { RegisterInfoComponent } from './register-info.component';
 
@@ -8,7 +9,8 @@ describe('RegisterInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterInfoComponent]
+      imports: [RegisterInfoComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 

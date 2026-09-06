@@ -1,5 +1,40 @@
-<input
-  class="textfield"
-  [type]="type"
-  [placeholder]="placeholder"
-/>
+<label class="textfield">
+
+  @if (label) {
+    <span class="textfield__label">
+      {{ label }}
+    </span>
+  }
+
+  @if (multiline) {
+    <textarea
+      class="textfield__control"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      [attr.required]="required ? '' : null"
+      [attr.pattern]="pattern"
+      [attr.maxlength]="maxlength !== null ? maxlength.toString() : null"
+      rows="5"
+      (input)="onInput($any($event).target.value)"
+      (blur)="onBlur()"
+    ></textarea>
+  } @else {
+    <input
+      class="textfield__control"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      [autocomplete]="autocomplete"
+      [attr.required]="required ? '' : null"
+      [attr.pattern]="pattern"
+      [attr.maxlength]="maxlength !== null ? maxlength.toString() : null"
+      [attr.minlength]="minlength !== null ? minlength.toString() : null"
+      [attr.inputmode]="inputmode"
+      (input)="onInput($any($event).target.value)"
+      (blur)="onBlur()"
+    />
+  }
+
+</label>
