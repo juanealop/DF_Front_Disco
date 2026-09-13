@@ -43,6 +43,39 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  // ============================================================
+  // ID DEL USUARIO AUTENTICADO
+  // El backend incluye el claim "userId" en el JWT; para el rol
+  // DISCOTECA equivale al id de la discoteca.
+  // ============================================================
+
+  getUsuarioId(): number | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const payload = this.decodificarToken(token);
+    const userId = payload?.['userId'];
+
+    if (typeof userId === 'number') return userId;
+    if (typeof userId === 'string' && userId.trim() !== '') return Number(userId);
+
+    return null;
+  }
+
+  private decodificarToken(token: string): Record<string, unknown> | null {
+    const partes = token.split('.');
+    if (partes.length < 2) return null;
+
+    try {
+      const base64 = partes[1].replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=');
+
+      return JSON.parse(atob(padded)) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+  }
+
   logout(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     localStorage.removeItem(this.tokenKey);
