@@ -1,125 +1,154 @@
 <div class="menu-principal">
 
-  <section class="menu-panel">
+  <!-- =====================================================
+       CABECERA: bienvenida + botón desplegable
+       ===================================================== -->
+  <header class="cabecera">
 
-    <!-- =====================================================
-         CABECERA: bienvenida + botón desplegable
-         ===================================================== -->
-    <header class="menu-panel__header">
+    <h1 class="cabecera__titulo">
+      Bienvenido
+      <span class="cabecera__nombre">"{{ nombreDiscoteca }}"</span>
+    </h1>
 
-      <h1 class="menu-panel__welcome">
-        Bienvenido "{{ nombreDiscoteca }}"
-      </h1>
+    <div class="menu-dropdown">
 
-      <div class="menu-dropdown">
+      <button
+        type="button"
+        class="menu-dropdown__toggle"
+        [class.menu-dropdown__toggle--open]="menuAbierto"
+        [attr.aria-expanded]="menuAbierto"
+        aria-haspopup="true"
+        aria-label="Abrir menú"
+        (click)="toggleMenu()">
 
-        <button
-          type="button"
-          class="menu-dropdown__toggle"
-          [class.menu-dropdown__toggle--open]="menuAbierto"
-          [attr.aria-expanded]="menuAbierto"
-          aria-haspopup="true"
-          aria-label="Abrir menú"
-          (click)="toggleMenu()">
+        <span class="menu-dropdown__bar"></span>
+        <span class="menu-dropdown__bar"></span>
+        <span class="menu-dropdown__bar"></span>
 
-          <span class="menu-dropdown__bar"></span>
-          <span class="menu-dropdown__bar"></span>
-          <span class="menu-dropdown__bar"></span>
+      </button>
 
-        </button>
+      @if (menuAbierto) {
+        <ul class="menu-dropdown__panel" role="menu">
 
-        @if (menuAbierto) {
-          <ul class="menu-dropdown__panel" role="menu">
-
-            @for (opcion of opcionesMenu; track opcion.accion) {
-              <li role="none">
-                <button
-                  type="button"
-                  class="menu-dropdown__item"
-                  [class.menu-dropdown__item--salir]="opcion.accion === 'salir'"
-                  role="menuitem"
-                  (click)="seleccionarOpcion(opcion)">
-                  {{ opcion.label }}
-                </button>
-              </li>
-            }
-
-          </ul>
-        }
-
-      </div>
-
-    </header>
-
-    <!-- =====================================================
-         SECCIONES
-         ===================================================== -->
-    <div class="menu-panel__sections">
-
-      <!-- MIS SEDES -->
-      <section class="lista">
-
-        <div class="lista__head">
-
-          <h2 class="lista__title">Mis sedes</h2>
-
-          <button
-            type="button"
-            class="lista__add"
-            aria-label="Agregar sede"
-            (click)="agregarSede()">
-            +
-          </button>
-
-        </div>
-
-        <ul class="lista__items">
-
-          @for (sede of sedes; track sede.nombre) {
-            <li class="tarjeta">
-              <span class="tarjeta__titulo">{{ sede.nombre }}</span>
-              <span class="tarjeta__sub">{{ sede.ubicacion }}</span>
+          @for (opcion of opcionesMenu; track opcion.accion) {
+            <li role="none">
+              <button
+                type="button"
+                class="menu-dropdown__item"
+                [class.menu-dropdown__item--salir]="opcion.accion === 'salir'"
+                role="menuitem"
+                (click)="seleccionarOpcion(opcion)">
+                {{ opcion.label }}
+              </button>
             </li>
           }
 
         </ul>
-
-      </section>
-
-      <!-- EVENTOS -->
-      <section class="lista">
-
-        <div class="lista__head">
-
-          <h2 class="lista__title">Eventos</h2>
-
-          <button
-            type="button"
-            class="lista__add"
-            aria-label="Agregar evento"
-            (click)="agregarEvento()">
-            +
-          </button>
-
-        </div>
-
-        <ul class="lista__items">
-
-          @for (evento of eventos; track evento.nombre) {
-            <li
-              class="tarjeta tarjeta--evento"
-              [class.tarjeta--activo]="evento.activo">
-              <span class="tarjeta__titulo">{{ evento.nombre }}</span>
-              <span class="tarjeta__sub">{{ evento.sede }}</span>
-            </li>
-          }
-
-        </ul>
-
-      </section>
+      }
 
     </div>
 
-  </section>
+  </header>
+
+  <!-- =====================================================
+       SECCIONES
+       ===================================================== -->
+  <main class="secciones">
+
+    <!-- MIS SEDES -->
+    <section class="lista">
+
+      <div class="lista__head">
+
+        <h2 class="lista__title">
+          Mis sedes
+          <span class="lista__count">{{ sedes.length }}</span>
+        </h2>
+
+        <button
+          type="button"
+          class="lista__add"
+          aria-label="Agregar sede"
+          (click)="agregarSede()">
+          +
+        </button>
+
+      </div>
+
+      <ul class="lista__items">
+
+        @for (sede of sedes; track sede.nombre) {
+          <li class="tarjeta">
+
+            <span class="tarjeta__icono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M12 21s-7-6.4-7-11a7 7 0 1 1 14 0c0 4.6-7 11-7 11z" />
+                <circle cx="12" cy="10" r="2.6" />
+              </svg>
+            </span>
+
+            <span class="tarjeta__info">
+              <span class="tarjeta__titulo">{{ sede.nombre }}</span>
+              <span class="tarjeta__sub">{{ sede.ubicacion }}</span>
+            </span>
+
+          </li>
+        }
+
+      </ul>
+
+    </section>
+
+    <!-- EVENTOS -->
+    <section class="lista">
+
+      <div class="lista__head">
+
+        <h2 class="lista__title">
+          Eventos
+          <span class="lista__count">{{ eventos.length }}</span>
+        </h2>
+
+        <button
+          type="button"
+          class="lista__add"
+          aria-label="Agregar evento"
+          (click)="agregarEvento()">
+          +
+        </button>
+
+      </div>
+
+      <ul class="lista__items">
+
+        @for (evento of eventos; track evento.nombre) {
+          <li
+            class="tarjeta tarjeta--evento"
+            [class.tarjeta--activo]="evento.activo">
+
+            <span class="tarjeta__icono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <rect x="3" y="4.5" width="18" height="16" rx="2.5" />
+                <path d="M3 9.5h18M8 3v3M16 3v3" />
+              </svg>
+            </span>
+
+            <span class="tarjeta__info">
+              <span class="tarjeta__titulo">{{ evento.nombre }}</span>
+              <span class="tarjeta__sub">{{ evento.sede }}</span>
+            </span>
+
+          </li>
+        }
+
+      </ul>
+
+    </section>
+
+  </main>
 
 </div>
