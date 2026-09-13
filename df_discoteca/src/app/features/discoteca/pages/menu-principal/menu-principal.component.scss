@@ -2,6 +2,7 @@
 
 // ============================================================
 // PANTALLA NEGRA DEL MENÚ PRINCIPAL
+// (ocupa toda la pantalla y se adapta a cualquier tamaño)
 // ============================================================
 
 :host {
@@ -14,11 +15,9 @@
 
   box-sizing: border-box;
 
-  padding: 40px;
+  padding: 28px;
 
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
 
   background-color: $color-black;
   color: $color-white;
@@ -29,12 +28,18 @@
 // ============================================================
 
 .menu-panel {
-  width: 100%;
-  max-width: 1180px;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+
+  min-width: 0;
 
   box-sizing: border-box;
 
-  padding: 28px 36px 40px;
+  padding: 28px 36px 36px;
 
   border: 2px solid rgba($color-white, 0.16);
   border-radius: 28px;
@@ -51,15 +56,15 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 56px;
+  min-height: 60px;
 
-  margin-bottom: 44px;
+  padding: 0 72px;
 }
 
 .menu-panel__welcome {
   margin: 0;
 
-  font-size: 26px;
+  font-size: clamp(20px, 2.3vw, 34px);
   font-weight: 700;
   letter-spacing: 0.5px;
 
@@ -124,7 +129,7 @@
   top: calc(100% + 10px);
   right: 0;
 
-  min-width: 220px;
+  min-width: 230px;
 
   margin: 0;
   padding: 8px;
@@ -170,15 +175,44 @@
   color: $color-primary-light;
 }
 
+// --- opción "Salir de la cuenta" ---
+
+.menu-dropdown__item--salir {
+  margin-top: 8px;
+
+  border-top: 1px solid rgba($color-white, 0.12);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  color: $color-error;
+}
+
+.menu-dropdown__item--salir:hover {
+  background: rgba($color-error, 0.16);
+  color: $color-error;
+}
+
 // ============================================================
 // SECCIONES (Mis sedes / Eventos)
 // ============================================================
 
 .menu-panel__sections {
+  flex: 1;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  gap: 44px;
+  gap: 40px;
+
+  min-height: 0;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 0;
 }
 
 .lista__head {
@@ -193,7 +227,7 @@
 .lista__title {
   margin: 0;
 
-  font-size: 18px;
+  font-size: clamp(15px, 1.1vw, 20px);
   font-weight: 700;
   letter-spacing: 1px;
 
@@ -201,8 +235,8 @@
 }
 
 .lista__add {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
 
   display: flex;
   align-items: center;
@@ -217,7 +251,7 @@
   color: $button-text;
 
   font-family: inherit;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   line-height: 1;
 
@@ -240,8 +274,10 @@
 }
 
 .lista__items {
+  flex: 1;
+
   margin: 0;
-  padding: 14px;
+  padding: 16px;
 
   list-style: none;
 
@@ -250,7 +286,9 @@
 
   gap: 14px;
 
-  min-height: 280px;
+  min-height: 0;
+
+  overflow-y: auto;
 
   border: 2px solid rgba($color-white, 0.16);
   border-radius: 20px;
@@ -266,7 +304,7 @@
 
   gap: 6px;
 
-  padding: 16px 18px;
+  padding: 18px 20px;
 
   border: 2px solid rgba($color-white, 0.12);
   border-radius: 16px;
@@ -281,14 +319,14 @@
     transform 0.15s ease;
 }
 
-.tarjeta:hover {
+.tarjeta:not(.tarjeta--evento):hover {
   border-color: $color-primary;
   background-color: rgba($color-primary, 0.1);
   transform: translateY(-1px);
 }
 
 .tarjeta__titulo {
-  font-size: 20px;
+  font-size: clamp(17px, 1.2vw, 22px);
   font-weight: 700;
 }
 
@@ -302,6 +340,26 @@
   text-transform: uppercase;
 }
 
+// ------------------------------------------------------------
+// EVENTOS: la "línea" del evento cambia de color según su estado
+//   - activo   => verde ($color-success)
+//   - inactivo => rojo  ($color-error)
+// ------------------------------------------------------------
+
+.tarjeta--evento {
+  border-color: $color-error;
+  border-left-width: 8px;
+}
+
+.tarjeta--evento.tarjeta--activo {
+  border-color: $color-success;
+}
+
+.tarjeta--evento:hover {
+  background-color: rgba($color-white, 0.06);
+  transform: translateY(-1px);
+}
+
 // ============================================================
 // RESPONSIVE
 // ============================================================
@@ -312,21 +370,35 @@
     grid-template-columns: 1fr;
   }
 
+  .menu-panel {
+    gap: 22px;
+  }
+
+  .lista__items {
+    min-height: 220px;
+  }
+
 }
 
 @media (max-width: 640px) {
 
   .menu-principal {
-    padding: 20px 16px;
+    padding: 14px;
   }
 
   .menu-panel {
-    padding: 24px 20px 28px;
+    padding: 20px 18px 24px;
     border-radius: 22px;
   }
 
-  .menu-panel__welcome {
-    font-size: 20px;
+  .menu-panel__header {
+    min-height: 52px;
+    padding: 0 56px;
+  }
+
+  .menu-dropdown__toggle {
+    width: 48px;
+    height: 44px;
   }
 
 }

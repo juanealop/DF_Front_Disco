@@ -1,4 +1,7 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../../../core/services/auth/auth.service';
 
 /** Sede (local) de la discoteca. */
 export interface Sede {
@@ -10,12 +13,14 @@ export interface Sede {
 export interface Evento {
   nombre: string;
   sede: string;
+  /** true => evento activo (línea verde), false => inactivo (línea roja). */
+  activo: boolean;
 }
 
 /** Opción del desplegable del botón de menú. */
 export interface OpcionMenu {
   label: string;
-  accion: 'cuenta' | 'facturacion';
+  accion: 'cuenta' | 'facturacion' | 'salir';
 }
 
 @Component({
@@ -39,7 +44,8 @@ export class MenuPrincipalComponent {
   /** Opciones que muestra el desplegable del botón. */
   readonly opcionesMenu: OpcionMenu[] = [
     { label: 'Cuenta', accion: 'cuenta' },
-    { label: 'Facturación', accion: 'facturacion' }
+    { label: 'Facturación', accion: 'facturacion' },
+    { label: 'Salir de la cuenta', accion: 'salir' }
   ];
 
   /** Sedes de la discoteca. */
@@ -51,11 +57,15 @@ export class MenuPrincipalComponent {
 
   /** Eventos programados. */
   readonly eventos: Evento[] = [
-    { nombre: 'Viernes Cantina', sede: 'Cantina 116' },
-    { nombre: 'Sábado Cantina', sede: 'Cantina 116' }
+    { nombre: 'Viernes Cantina', sede: 'Cantina 116', activo: true },
+    { nombre: 'Sábado Cantina', sede: 'Cantina 116', activo: false }
   ];
 
-  constructor(private readonly el: ElementRef<HTMLElement>) {}
+  constructor(
+    private readonly el: ElementRef<HTMLElement>,
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
 
   // ============================================================
   // DESPLEGABLE
@@ -68,9 +78,19 @@ export class MenuPrincipalComponent {
   seleccionarOpcion(opcion: OpcionMenu): void {
     this.menuAbierto = false;
 
-    // TODO: aquí va la acción de cada opción (por ejemplo navegar a
-    // las pantallas de Cuenta / Facturación cuando existan sus rutas).
-    void opcion;
+    switch (opcion.accion) {
+
+      case 'salir':
+        this.authService.logout();
+        void this.router.navigate(['/']);
+        break;
+
+      case 'cuenta':
+      case 'facturacion':
+        // TODO: navegar a las pantallas de Cuenta / Facturación.
+        break;
+
+    }
   }
 
   // ============================================================

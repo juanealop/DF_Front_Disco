@@ -36,6 +36,7 @@
                 <button
                   type="button"
                   class="menu-dropdown__item"
+                  [class.menu-dropdown__item--salir]="opcion.accion === 'salir'"
                   role="menuitem"
                   (click)="seleccionarOpcion(opcion)">
                   {{ opcion.label }}
@@ -105,7 +106,9 @@
         <ul class="lista__items">
 
           @for (evento of eventos; track evento.nombre) {
-            <li class="tarjeta">
+            <li
+              class="tarjeta tarjeta--evento"
+              [class.tarjeta--activo]="evento.activo">
               <span class="tarjeta__titulo">{{ evento.nombre }}</span>
               <span class="tarjeta__sub">{{ evento.sede }}</span>
             </li>
