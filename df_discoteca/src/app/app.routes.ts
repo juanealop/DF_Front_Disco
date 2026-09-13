@@ -11,7 +11,7 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [loginRedirectGuard]
   },
-  {
+  {              //ESTO ES DEVELOP
     path: 'register',
     children: [
       {
