@@ -1,7 +1,7 @@
 <div class="menu-principal">
 
   <!-- =====================================================
-       CABECERA: bienvenida + botón desplegable
+       CABECERA
        ===================================================== -->
   <header class="cabecera">
 
@@ -56,18 +56,18 @@
   <main class="secciones">
 
     <!-- MIS SEDES -->
-    <section class="lista">
+    <section class="panel">
 
-      <div class="lista__head">
+      <div class="panel__head">
 
-        <h2 class="lista__title">
-          Mis sedes
-          <span class="lista__count">{{ sedes.length }}</span>
-        </h2>
+        <div class="panel__texto">
+          <h2 class="panel__titulo">Mis sedes</h2>
+          <p class="panel__desc">Administra las sedes de tu discoteca</p>
+        </div>
 
         <button
           type="button"
-          class="lista__add"
+          class="panel__add"
           aria-label="Agregar sede"
           (click)="agregarSede()">
           +
@@ -75,23 +75,22 @@
 
       </div>
 
-      <ul class="lista__items">
+      <ul class="panel__items">
 
         @for (sede of sedes; track sede.nombre) {
-          <li class="tarjeta">
+          <li class="item">
 
-            <span class="tarjeta__icono">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <path d="M12 21s-7-6.4-7-11a7 7 0 1 1 14 0c0 4.6-7 11-7 11z" />
-                <circle cx="12" cy="10" r="2.6" />
-              </svg>
+            <span class="item__info">
+              <span class="item__titulo">{{ sede.nombre }}</span>
+              <span class="item__sub">{{ sede.ubicacion }}</span>
             </span>
 
-            <span class="tarjeta__info">
-              <span class="tarjeta__titulo">{{ sede.nombre }}</span>
-              <span class="tarjeta__sub">{{ sede.ubicacion }}</span>
+            <span class="item__chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
             </span>
 
           </li>
@@ -102,18 +101,18 @@
     </section>
 
     <!-- EVENTOS -->
-    <section class="lista">
+    <section class="panel">
 
-      <div class="lista__head">
+      <div class="panel__head">
 
-        <h2 class="lista__title">
-          Eventos
-          <span class="lista__count">{{ eventos.length }}</span>
-        </h2>
+        <div class="panel__texto">
+          <h2 class="panel__titulo">Eventos</h2>
+          <p class="panel__desc">Gestiona los eventos de tus sedes</p>
+        </div>
 
         <button
           type="button"
-          class="lista__add"
+          class="panel__add"
           aria-label="Agregar evento"
           (click)="agregarEvento()">
           +
@@ -121,25 +120,24 @@
 
       </div>
 
-      <ul class="lista__items">
+      <ul class="panel__items">
 
         @for (evento of eventos; track evento.nombre) {
           <li
-            class="tarjeta tarjeta--evento"
-            [class.tarjeta--activo]="evento.activo">
+            class="item item--evento"
+            [class.item--activo]="evento.activo">
 
-            <span class="tarjeta__icono">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <rect x="3" y="4.5" width="18" height="16" rx="2.5" />
-                <path d="M3 9.5h18M8 3v3M16 3v3" />
-              </svg>
+            <span class="item__info">
+              <span class="item__titulo">{{ evento.nombre }}</span>
+              <span class="item__sub">{{ evento.sede }}</span>
             </span>
 
-            <span class="tarjeta__info">
-              <span class="tarjeta__titulo">{{ evento.nombre }}</span>
-              <span class="tarjeta__sub">{{ evento.sede }}</span>
+            <span class="item__chevron">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
             </span>
 
           </li>

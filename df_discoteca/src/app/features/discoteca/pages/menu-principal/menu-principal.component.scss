@@ -1,7 +1,7 @@
 @use '../../../../../styles/variable' as *;
 
 // ============================================================
-// MENÚ PRINCIPAL (pantalla completa, sin caja contenedora)
+// MENÚ PRINCIPAL
 // ============================================================
 
 :host {
@@ -19,14 +19,14 @@
   display: flex;
   flex-direction: column;
 
-  gap: clamp(24px, 3vw, 52px);
+  gap: clamp(24px, 3vw, 48px);
 
   background-color: $color-black;
 
-  // Resplandor rojo sutil para dar profundidad.
+  // Resplandores rojos en las esquinas.
   background-image:
-    radial-gradient(900px 520px at 10% -15%, rgba($color-primary, 0.16), transparent 60%),
-    radial-gradient(760px 480px at 100% 0%, rgba($color-primary, 0.08), transparent 55%);
+    radial-gradient(620px 420px at 0% 0%, rgba($color-primary, 0.28), transparent 62%),
+    radial-gradient(620px 420px at 100% 100%, rgba($color-primary, 0.18), transparent 62%);
   background-repeat: no-repeat;
 
   color: $color-white;
@@ -43,7 +43,7 @@
   align-items: center;
   justify-content: center;
 
-  min-height: clamp(48px, 6vw, 74px);
+  min-height: clamp(46px, 5vw, 64px);
 
   padding: 0 clamp(56px, 9vw, 120px);
 }
@@ -51,7 +51,7 @@
 .cabecera__titulo {
   margin: 0;
 
-  font-size: clamp(22px, 3.4vw, 48px);
+  font-size: clamp(22px, 3.4vw, 46px);
   font-weight: 700;
   letter-spacing: 0.5px;
   line-height: 1.1;
@@ -65,7 +65,7 @@
 }
 
 // ============================================================
-// DESPLEGABLE (botón de menú)
+// DESPLEGABLE
 // ============================================================
 
 .menu-dropdown {
@@ -118,8 +118,6 @@
 
   background-color: $color-white;
 }
-
-// --- panel del desplegable ---
 
 .menu-dropdown__panel {
   position: absolute;
@@ -188,7 +186,7 @@
 }
 
 // ============================================================
-// SECCIONES
+// SECCIONES (cajas)
 // ============================================================
 
 .secciones {
@@ -197,80 +195,66 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  gap: clamp(24px, 3vw, 60px);
+  gap: clamp(22px, 2.4vw, 40px);
 
   min-height: 0;
 }
 
-.lista {
+.panel {
   display: flex;
   flex-direction: column;
 
   min-width: 0;
   min-height: 0;
+
+  padding: clamp(18px, 1.8vw, 28px);
+
+  border: 2px solid rgba($color-primary, 0.5);
+  border-radius: 16px;
+
+  background-color: rgba($color-white, 0.015);
 }
 
-.lista__head {
+// ---- cabecera de la caja ----
+
+.panel__head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 
-  gap: 16px;
+  gap: 18px;
 
-  margin-bottom: clamp(16px, 1.6vw, 26px);
+  margin-bottom: clamp(14px, 1.4vw, 22px);
 }
 
-.lista__title {
-  margin: 0;
+.panel__texto {
+  min-width: 0;
+}
 
-  display: flex;
-  align-items: center;
+.panel__titulo {
+  margin: 0 0 4px;
 
-  gap: 14px;
-
-  font-size: clamp(18px, 1.7vw, 30px);
+  font-size: clamp(18px, 1.6vw, 26px);
   font-weight: 700;
   letter-spacing: 1px;
 
   text-transform: uppercase;
 }
 
-.lista__title::before {
-  content: '';
+.panel__desc {
+  margin: 0;
 
-  width: 6px;
-  height: clamp(22px, 2vw, 32px);
+  color: $color-gray;
 
-  border-radius: 4px;
-
-  background-color: $color-primary;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 500;
 }
 
-.lista__count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 28px;
-  height: 26px;
-
-  padding: 0 9px;
-
-  border-radius: 999px;
-
-  background-color: $color-primary;
-  color: $color-white;
-
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-.lista__add {
+.panel__add {
   flex: 0 0 auto;
 
-  width: clamp(42px, 4vw, 54px);
-  height: clamp(42px, 4vw, 54px);
+  width: clamp(40px, 3.6vw, 52px);
+  height: clamp(40px, 3.6vw, 52px);
 
   display: flex;
   align-items: center;
@@ -279,13 +263,13 @@
   padding: 0;
 
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
 
   background-color: $button-background;
   color: $button-text;
 
   font-family: inherit;
-  font-size: clamp(24px, 2.4vw, 32px);
+  font-size: clamp(22px, 2.2vw, 30px);
   font-weight: 700;
   line-height: 1;
 
@@ -299,18 +283,20 @@
     transform 0.15s ease;
 }
 
-.lista__add:hover {
+.panel__add:hover {
   background-color: $button-background-hover;
   box-shadow: $button-shadow-hover;
   transform: translateY(-2px);
 }
 
-.lista__add:active {
+.panel__add:active {
   background-color: $button-background-active;
   transform: scale(0.96);
 }
 
-.lista__items {
+// ---- listado ----
+
+.panel__items {
   flex: 1;
 
   margin: 0;
@@ -321,7 +307,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: clamp(12px, 1.2vw, 18px);
+  gap: 8px;
 
   min-height: 0;
 
@@ -329,68 +315,37 @@
 }
 
 // ============================================================
-// TARJETA (sede / evento)
+// ÍTEM (sede / evento)
 // ============================================================
 
-.tarjeta {
+.item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  gap: clamp(14px, 1.4vw, 20px);
+  gap: 16px;
 
-  padding: clamp(16px, 1.5vw, 24px) clamp(18px, 1.6vw, 26px);
+  padding: clamp(14px, 1.3vw, 20px) clamp(14px, 1.3vw, 20px);
 
-  border: 1px solid rgba($color-white, 0.08);
-  border-radius: 18px;
+  border: 1px solid transparent;
+  border-radius: 14px;
 
-  background-image: linear-gradient(
-    180deg,
-    rgba($color-white, 0.06),
-    rgba($color-white, 0.02)
-  );
+  background-color: rgba($color-white, 0.03);
 
   cursor: pointer;
 
   transition:
-    border-color 0.25s ease,
-    background-image 0.25s ease,
-    transform 0.18s ease,
-    box-shadow 0.25s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
 }
 
-.tarjeta:not(.tarjeta--evento):hover {
-  border-color: rgba($color-primary, 0.65);
-  background-image: linear-gradient(
-    180deg,
-    rgba($color-primary, 0.16),
-    rgba($color-primary, 0.05)
-  );
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba($color-black, 0.5);
+.item:hover {
+  background-color: rgba($color-white, 0.07);
+  border-color: rgba($color-primary, 0.4);
 }
 
-.tarjeta__icono {
-  flex: 0 0 auto;
-
-  width: clamp(46px, 4vw, 58px);
-  height: clamp(46px, 4vw, 58px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 15px;
-
-  background-color: rgba($color-primary, 0.16);
-  color: $color-primary;
-}
-
-.tarjeta__icono svg {
-  width: 56%;
-  height: 56%;
-}
-
-.tarjeta__info {
+.item__info {
   display: flex;
   flex-direction: column;
 
@@ -399,13 +354,13 @@
   min-width: 0;
 }
 
-.tarjeta__titulo {
-  font-size: clamp(18px, 1.5vw, 27px);
+.item__titulo {
+  font-size: clamp(17px, 1.4vw, 25px);
   font-weight: 700;
   line-height: 1.15;
 }
 
-.tarjeta__sub {
+.item__sub {
   color: $color-gray;
 
   font-size: clamp(12px, 0.9vw, 15px);
@@ -415,38 +370,47 @@
   text-transform: uppercase;
 }
 
+.item__chevron {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba($color-white, 0.4);
+}
+
+.item__chevron svg {
+  width: clamp(18px, 1.5vw, 26px);
+  height: clamp(18px, 1.5vw, 26px);
+}
+
+.item:hover .item__chevron {
+  color: $color-primary;
+}
+
 // ------------------------------------------------------------
-// EVENTOS: la línea cambia de color según el estado
+// EVENTOS: barra lateral según el estado
 //   - activo   => verde ($color-success)
 //   - inactivo => rojo  ($color-error)
 // ------------------------------------------------------------
 
-.tarjeta--evento {
+.item--evento {
   border-left: 7px solid $color-error;
 }
 
-.tarjeta--evento.tarjeta--activo {
+.item--evento.item--activo {
   border-left-color: $color-success;
 }
 
-.tarjeta--evento.tarjeta--activo .tarjeta__icono {
-  background-color: rgba($color-success, 0.16);
-  color: $color-success;
+.item--evento:hover {
+  background-color: rgba($color-white, 0.07);
+  border-color: rgba($color-white, 0.12);
+  border-left-color: $color-error;
 }
 
-.tarjeta--evento:not(.tarjeta--activo) .tarjeta__icono {
-  background-color: rgba($color-error, 0.16);
-  color: $color-error;
-}
-
-.tarjeta--evento:hover {
-  background-image: linear-gradient(
-    180deg,
-    rgba($color-white, 0.1),
-    rgba($color-white, 0.04)
-  );
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba($color-black, 0.5);
+.item--evento.item--activo:hover {
+  border-left-color: $color-success;
 }
 
 // ============================================================
@@ -459,7 +423,7 @@
     grid-template-columns: 1fr;
   }
 
-  .lista__items {
+  .panel__items {
     overflow: visible;
   }
 
