@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { RegisterInfoComponent } from './features/auth/pages/register/register-info/register-info.component';
 import { RegisterPayComponent } from './features/auth/pages/register/register-pay/register-pay.component';
-import { MenuPrincipalComponent } from './features/menu-principal/menu-principal.component';
+import { MenuPrincipalComponent } from './features/discoteca/pages/menu-principal/menu-principal.component';
 import { authGuard, loginRedirectGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [

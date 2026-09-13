@@ -1,0 +1,25 @@
+@use '../../../styles/variable' as *;
+
+// ============================================================
+// PANTALLA NEGRA DEL MENÚ PRINCIPAL
+// ============================================================
+
+.menu-principal {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: $color-black;
+
+  color: $color-white;
+
+  h1 {
+    margin: 0;
+
+    font-size: 36px;
+    font-weight: 700;
+  }
+}
