@@ -98,7 +98,7 @@ export class MenuPrincipalComponent {
   // ============================================================
 
   agregarSede(): void {
-    // TODO: abrir el formulario/modal para crear una sede.
+    void this.router.navigate(['/sedes/crear']);
   }
 
   agregarEvento(): void {

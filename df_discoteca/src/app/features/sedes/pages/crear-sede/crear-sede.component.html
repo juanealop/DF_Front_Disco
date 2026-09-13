@@ -1,1 +1,158 @@
-<p>crear-sede works!</p>
+<div class="crear-sede">
+
+  <section class="crear-sede__card">
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+    <header class="crear-sede__header">
+      <h1 class="crear-sede__titulo">Crear sede</h1>
+      <p class="crear-sede__subtitulo">Completa los datos de tu nueva sede</p>
+    </header>
+
+    <!-- =====================================================
+         FORMULARIO
+         ===================================================== -->
+    <form class="crear-sede__form" (ngSubmit)="crearSede()">
+
+      <div class="crear-sede__grid">
+
+        <!-- DATOS -->
+        <div class="crear-sede__campos">
+
+          <app-textfield
+            name="nombre"
+            label="Nombre"
+            placeholder="Ej. Cantina 116"
+            autocomplete="organization"
+            [(ngModel)]="nombre"
+            [required]="true"
+            [maxlength]="120"
+          />
+
+          <app-textfield
+            name="descripcion"
+            label="Descripción"
+            placeholder="Cuenta algo sobre la sede (opcional)"
+            autocomplete="off"
+            [(ngModel)]="descripcion"
+            [multiline]="true"
+            [maxlength]="500"
+          />
+
+          <div class="crear-sede__fila">
+
+            <app-textfield
+              name="pais"
+              label="País"
+              placeholder="Colombia"
+              [(ngModel)]="pais"
+              [required]="true"
+              [maxlength]="80"
+            />
+
+            <app-textfield
+              name="ciudad"
+              label="Ciudad"
+              placeholder="Bogotá"
+              [(ngModel)]="ciudad"
+              [required]="true"
+              [maxlength]="80"
+            />
+
+          </div>
+
+          <app-textfield
+            name="direccion"
+            label="Dirección"
+            placeholder="Calle 123 #45-67"
+            autocomplete="street-address"
+            [(ngModel)]="direccion"
+            [required]="true"
+            [maxlength]="180"
+          />
+
+        </div>
+
+        <!-- IMÁGENES -->
+        <div class="crear-sede__imagenes">
+
+          <label class="upload" for="sede-imagenes">
+
+            <svg class="upload__icono" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4.5" width="18" height="15" rx="3" />
+              <circle cx="8.5" cy="10" r="1.6" />
+              <path d="M21 15.5l-4.5-4.5L7 20.5" />
+            </svg>
+
+            <span class="upload__texto">
+              Sube hasta {{ maxImagenes }} imágenes de la sede
+            </span>
+
+            <span class="upload__ayuda">
+              PNG o JPG · máximo {{ maxImagenes }} imágenes
+            </span>
+
+            <input
+              id="sede-imagenes"
+              class="upload__input"
+              type="file"
+              accept="image/*"
+              multiple
+              (change)="onImagenesSeleccionadas($event)"
+            />
+
+          </label>
+
+          @if (imagenes.length) {
+            <ul class="preview">
+              @for (imagen of imagenes; track imagen.url; let i = $index) {
+                <li class="preview__item">
+                  <img [src]="imagen.url" [alt]="imagen.nombre" />
+                  <button
+                    type="button"
+                    class="preview__quitar"
+                    aria-label="Quitar imagen"
+                    (click)="quitarImagen(i)">
+                    ×
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+
+        </div>
+
+      </div>
+
+      @if (error) {
+        <div class="crear-sede__error">{{ error }}</div>
+      }
+
+      <!-- ACCIONES -->
+      <footer class="crear-sede__acciones">
+
+        <button
+          type="button"
+          class="crear-sede__cancelar"
+          (click)="volver()">
+          Cancelar
+        </button>
+
+        <div class="crear-sede__submit">
+          <app-button
+            text="Crear sede"
+            type="submit"
+            [loading]="cargando"
+          />
+        </div>
+
+      </footer>
+
+    </form>
+
+  </section>
+
+</div>
