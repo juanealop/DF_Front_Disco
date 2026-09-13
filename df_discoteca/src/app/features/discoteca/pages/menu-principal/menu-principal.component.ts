@@ -1,23 +1,12 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth/auth.service';
+import { SedesService } from '../../../../core/services/sedes/sedes.service';
+import { Evento } from '../../../../core/models/evento.model';
+import { Sede } from '../../../../core/models/sede.model';
 
-/** Sede (local) de la discoteca. */
-export interface Sede {
-  nombre: string;
-  ubicacion: string;
-}
-
-/** Evento programado en la discoteca. */
-export interface Evento {
-  nombre: string;
-  sede: string;
-  /** true => evento activo (línea verde), false => inactivo (línea roja). */
-  activo: boolean;
-}
-
-/** Opción del desplegable del botón de menú. */
+/** Opción del menú desplegable. */
 export interface OpcionMenu {
   label: string;
   accion: 'cuenta' | 'facturacion' | 'salir';
@@ -29,43 +18,85 @@ export interface OpcionMenu {
   templateUrl: './menu-principal.component.html',
   styleUrl: './menu-principal.component.scss'
 })
-export class MenuPrincipalComponent {
+export class MenuPrincipalComponent implements OnInit {
 
   // ============================================================
-  // PANTALLA PRINCIPAL DESPUÉS DE INICIAR SESIÓN COMO DISCOTECA
+  // DATOS DE LA PANTALLA
   // ============================================================
 
-  /** Nombre de la discoteca autenticada (placeholder por ahora). */
-  readonly nombreDiscoteca = 'NOMBRE DISCOTECA';
+  /**
+   * Nombre de la discoteca autenticada.
+   *
+   * Este valor posteriormente también debería venir
+   * del usuario/discoteca autenticado.
+   */
+  nombreDiscoteca = '';
 
-  /** Estado del desplegable que abre el botón de menú. */
+  /**
+   * Sedes.
+   *
+   * IMPORTANTE:
+   * No hay datos quemados.
+   * Estas listas se llenarán desde el backend.
+   */
+  sedes: Sede[] = [];
+
+  /**
+   * Eventos.
+   *
+   * IMPORTANTE:
+   * No hay datos quemados.
+   * Estos datos se llenarán desde el backend.
+   */
+  eventos: Evento[] = [];
+
+  // ============================================================
+  // MENÚ
+  // ============================================================
+
   menuAbierto = false;
 
-  /** Opciones que muestra el desplegable del botón. */
   readonly opcionesMenu: OpcionMenu[] = [
-    { label: 'Cuenta', accion: 'cuenta' },
-    { label: 'Facturación', accion: 'facturacion' },
-    { label: 'Salir de la cuenta', accion: 'salir' }
+    {
+      label: 'Cuenta',
+      accion: 'cuenta'
+    },
+    {
+      label: 'Facturación',
+      accion: 'facturacion'
+    },
+    {
+      label: 'Salir de la cuenta',
+      accion: 'salir'
+    }
   ];
 
-  /** Sedes de la discoteca. */
-  readonly sedes: Sede[] = [
-    { nombre: 'Cantina 116', ubicacion: 'Bogotá, Colombia' },
-    { nombre: 'Cantina Chía', ubicacion: 'Chía, Colombia' },
-    { nombre: 'Cantina Valledupar', ubicacion: 'Valledupar, Colombia' }
-  ];
-
-  /** Eventos programados. */
-  readonly eventos: Evento[] = [
-    { nombre: 'Viernes Cantina', sede: 'Cantina 116', activo: true },
-    { nombre: 'Sábado Cantina', sede: 'Cantina 116', activo: false }
-  ];
+  // ============================================================
+  // CONSTRUCTOR
+  // ============================================================
 
   constructor(
     private readonly el: ElementRef<HTMLElement>,
     private readonly authService: AuthService,
+    private readonly sedesService: SedesService,
     private readonly router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.nombreDiscoteca = this.authService.getNombreDiscoteca() ?? '';
+
+    const idDiscoteca = this.authService.getUsuarioId();
+    if (idDiscoteca === null) return;
+
+    this.sedesService.obtenerPorDiscoteca(idDiscoteca).subscribe({
+      next: (sedes) => this.sedes = sedes,
+      error: (error: unknown) => console.error('No se pudieron cargar las sedes.', error)
+    });
+  }
+
+  ubicacionSede(sede: Sede): string {
+    return [sede.ciudad, sede.pais].filter(Boolean).join(', ');
+  }
 
   // ============================================================
   // DESPLEGABLE
@@ -86,15 +117,17 @@ export class MenuPrincipalComponent {
         break;
 
       case 'cuenta':
-      case 'facturacion':
-        // TODO: navegar a las pantallas de Cuenta / Facturación.
+        // TODO: navegar a Cuenta
         break;
 
+      case 'facturacion':
+        // TODO: navegar a Facturación
+        break;
     }
   }
 
   // ============================================================
-  // ACCIONES DE LAS SECCIONES
+  // ACCIONES
   // ============================================================
 
   agregarSede(): void {
@@ -102,29 +135,36 @@ export class MenuPrincipalComponent {
   }
 
   agregarEvento(): void {
-    // TODO: abrir el formulario/modal para crear un evento.
+    // TODO: navegar al formulario de creación de evento
   }
 
   // ============================================================
-  // CERRAR AL HACER CLIC FUERA / ESC
+  // CERRAR MENÚ AL HACER CLICK FUERA
   // ============================================================
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
+
     if (!this.menuAbierto) {
       return;
     }
 
     const target = event.target as Node | null;
 
-    if (target && !this.el.nativeElement.contains(target)) {
+    if (
+      target &&
+      !this.el.nativeElement.contains(target)
+    ) {
       this.menuAbierto = false;
     }
   }
+
+  // ============================================================
+  // CERRAR MENÚ CON ESC
+  // ============================================================
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.menuAbierto = false;
   }
-
 }

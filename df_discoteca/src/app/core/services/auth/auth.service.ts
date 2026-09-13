@@ -15,6 +15,7 @@ export class AuthService {
 
   private readonly loginUrl = `${environment.apiUrl}/api/auth/login`;
   private readonly tokenKey = 'token';
+  private readonly nombreKey = 'nombreDiscoteca';
   private readonly platformId = inject(PLATFORM_ID);
 
   constructor(private readonly http: HttpClient) {}
@@ -30,7 +31,10 @@ export class AuthService {
     };
 
     return this.http.post<RespuestaAutenticacion>(this.loginUrl, solicitud).pipe(
-      tap(({ token }) => this.setToken(token))
+      tap(({ token, nombre }) => {
+        this.setToken(token);
+        this.setNombreDiscoteca(nombre);
+      })
     );
   }
 
@@ -62,6 +66,11 @@ export class AuthService {
     return null;
   }
 
+  getNombreDiscoteca(): string | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
+    return localStorage.getItem(this.nombreKey);
+  }
+
   private decodificarToken(token: string): Record<string, unknown> | null {
     const partes = token.split('.');
     if (partes.length < 2) return null;
@@ -79,10 +88,16 @@ export class AuthService {
   logout(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.nombreKey);
   }
 
   private setToken(token: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
     localStorage.setItem(this.tokenKey, token);
+  }
+
+  private setNombreDiscoteca(nombre: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    localStorage.setItem(this.nombreKey, nombre);
   }
 }

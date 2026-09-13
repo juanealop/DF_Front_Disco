@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -108,10 +109,12 @@ export class CrearSedeComponent {
         this.cargando = false;
         void this.router.navigate(['/menu-principal']);
       },
-      error: (err: unknown) => {
+      error: (err: HttpErrorResponse) => {
         console.error(err);
         this.cargando = false;
-        this.error = 'No se pudo crear la sede. Verifica los datos e intenta de nuevo.';
+        this.error = err.status === 401
+          ? 'Tu sesión expiró. Inicia sesión nuevamente para crear una sede.'
+          : err.error?.message ?? 'No se pudo crear la sede. Verifica los datos e intenta de nuevo.';
       }
     });
   }

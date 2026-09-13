@@ -21,4 +21,8 @@ export class SedesService {
   crearSede(dto: CrearSedeDTO): Observable<Sede> {
     return this.http.post<Sede>(this.sedesUrl, dto);
   }
+
+  obtenerPorDiscoteca(idDiscoteca: number): Observable<Sede[]> {
+    return this.http.get<Sede[]>(`${this.sedesUrl}/discoteca/${idDiscoteca}`);
+  }
 }

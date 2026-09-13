@@ -3,11 +3,14 @@
   <!-- =====================================================
        CABECERA
        ===================================================== -->
+
   <header class="cabecera">
 
     <h1 class="cabecera__titulo">
       Bienvenido
-      <span class="cabecera__nombre">"{{ nombreDiscoteca }}"</span>
+      <span class="cabecera__nombre">
+        "{{ nombreDiscoteca }}"
+      </span>
     </h1>
 
     <div class="menu-dropdown">
@@ -28,41 +31,66 @@
       </button>
 
       @if (menuAbierto) {
-        <ul class="menu-dropdown__panel" role="menu">
+
+        <ul
+          class="menu-dropdown__panel"
+          role="menu">
 
           @for (opcion of opcionesMenu; track opcion.accion) {
+
             <li role="none">
+
               <button
                 type="button"
                 class="menu-dropdown__item"
-                [class.menu-dropdown__item--salir]="opcion.accion === 'salir'"
+                [class.menu-dropdown__item--salir]="
+                  opcion.accion === 'salir'
+                "
                 role="menuitem"
                 (click)="seleccionarOpcion(opcion)">
+
                 {{ opcion.label }}
+
               </button>
+
             </li>
+
           }
 
         </ul>
+
       }
 
     </div>
 
   </header>
 
+
   <!-- =====================================================
        SECCIONES
        ===================================================== -->
+
   <main class="secciones">
 
-    <!-- MIS SEDES -->
+
+    <!-- ===================================================
+         MIS SEDES
+         =================================================== -->
+
     <section class="panel">
 
       <div class="panel__head">
 
         <div class="panel__texto">
-          <h2 class="panel__titulo">Mis sedes</h2>
-          <p class="panel__desc">Administra las sedes de tu discoteca</p>
+
+          <h2 class="panel__titulo">
+            Mis sedes
+          </h2>
+
+          <p class="panel__desc">
+            Administra las sedes de tu discoteca
+          </p>
+
         </div>
 
         <button
@@ -70,44 +98,77 @@
           class="panel__add"
           aria-label="Agregar sede"
           (click)="agregarSede()">
+
           +
+
         </button>
 
       </div>
 
+
       <ul class="panel__items">
 
-        @for (sede of sedes; track sede.nombre) {
+        @for (sede of sedes; track sede.idSede) {
+
           <li class="item">
 
             <span class="item__info">
-              <span class="item__titulo">{{ sede.nombre }}</span>
-              <span class="item__sub">{{ sede.ubicacion }}</span>
+
+              <span class="item__titulo">
+                {{ sede.nombre }}
+              </span>
+
+              <span class="item__sub">
+                {{ ubicacionSede(sede) }}
+              </span>
+
             </span>
 
+
             <span class="item__chevron">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+
                 <path d="M9 5l7 7-7 7" />
+
               </svg>
+
             </span>
 
           </li>
+
         }
 
       </ul>
 
     </section>
 
-    <!-- EVENTOS -->
+
+    <!-- ===================================================
+         EVENTOS
+         =================================================== -->
+
     <section class="panel">
 
       <div class="panel__head">
 
         <div class="panel__texto">
-          <h2 class="panel__titulo">Eventos</h2>
-          <p class="panel__desc">Gestiona los eventos de tus sedes</p>
+
+          <h2 class="panel__titulo">
+            Eventos
+          </h2>
+
+          <p class="panel__desc">
+            Gestiona los eventos de tus sedes
+          </p>
+
         </div>
 
         <button
@@ -115,32 +176,53 @@
           class="panel__add"
           aria-label="Agregar evento"
           (click)="agregarEvento()">
+
           +
+
         </button>
 
       </div>
 
+
       <ul class="panel__items">
 
-        @for (evento of eventos; track evento.nombre) {
+        @for (evento of eventos; track evento.idEvento) {
+
           <li
-            class="item item--evento"
-            [class.item--activo]="evento.activo">
+            class="item item--evento">
 
             <span class="item__info">
-              <span class="item__titulo">{{ evento.nombre }}</span>
-              <span class="item__sub">{{ evento.sede }}</span>
+
+              <span class="item__titulo">
+                {{ evento.descripcion }}
+              </span>
+
+              <span class="item__sub">
+                {{ evento.sede.nombre }}
+              </span>
+
             </span>
 
+
             <span class="item__chevron">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+
                 <path d="M9 5l7 7-7 7" />
+
               </svg>
+
             </span>
 
           </li>
+
         }
 
       </ul>
