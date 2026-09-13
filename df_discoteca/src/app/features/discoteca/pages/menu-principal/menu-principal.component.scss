@@ -11,22 +11,30 @@
 .menu-principal {
   width: 100%;
   min-height: 100vh;
-
   box-sizing: border-box;
 
-  padding: clamp(22px, 3vw, 52px);
+  padding: clamp(28px, 3vw, 48px);
 
   display: flex;
   flex-direction: column;
 
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(28px, 3vw, 42px);
 
   background-color: $color-black;
 
-  // Resplandores rojos en las esquinas.
+  // Resplandores rojos en las esquinas
   background-image:
-    radial-gradient(620px 420px at 0% 0%, rgba($color-primary, 0.28), transparent 62%),
-    radial-gradient(620px 420px at 100% 100%, rgba($color-primary, 0.18), transparent 62%);
+    radial-gradient(
+      620px 420px at 0% 0%,
+      rgba($color-primary, 0.28),
+      transparent 62%
+    ),
+    radial-gradient(
+      620px 420px at 100% 100%,
+      rgba($color-primary, 0.18),
+      transparent 62%
+    );
+
   background-repeat: no-repeat;
 
   color: $color-white;
@@ -43,20 +51,24 @@
   align-items: center;
   justify-content: center;
 
-  min-height: clamp(46px, 5vw, 64px);
+  min-height: clamp(52px, 5vw, 72px);
 
-  padding: 0 clamp(56px, 9vw, 120px);
+  padding: 0 clamp(60px, 9vw, 120px);
 }
 
 .cabecera__titulo {
   margin: 0;
 
-  font-size: clamp(22px, 3.4vw, 46px);
+  font-size: clamp(26px, 3.4vw, 46px);
+
   font-weight: 700;
+
   letter-spacing: 0.5px;
+
   line-height: 1.1;
 
   text-align: center;
+
   text-transform: uppercase;
 }
 
@@ -78,8 +90,8 @@
 }
 
 .menu-dropdown__toggle {
-  width: 56px;
-  height: 52px;
+  width: 58px;
+  height: 54px;
 
   display: flex;
   flex-direction: column;
@@ -91,7 +103,8 @@
   padding: 0;
 
   border: 2px solid rgba($color-white, 0.22);
-  border-radius: 16px;
+
+  border-radius: 14px;
 
   background: rgba($color-white, 0.04);
 
@@ -106,12 +119,15 @@
 .menu-dropdown__toggle:hover,
 .menu-dropdown__toggle--open {
   border-color: $color-primary;
+
   background: rgba($color-primary, 0.14);
-  box-shadow: 0 10px 24px rgba($color-primary, 0.22);
+
+  box-shadow:
+    0 10px 24px rgba($color-primary, 0.22);
 }
 
 .menu-dropdown__bar {
-  width: 28px;
+  width: 30px;
   height: 3px;
 
   border-radius: 2px;
@@ -119,8 +135,13 @@
   background-color: $color-white;
 }
 
+// ============================================================
+// PANEL DESPLEGABLE
+// ============================================================
+
 .menu-dropdown__panel {
   position: absolute;
+
   top: calc(100% + 12px);
   right: 0;
 
@@ -134,9 +155,11 @@
   background-color: #101010;
 
   border: 1px solid rgba($color-white, 0.14);
+
   border-radius: 18px;
 
-  box-shadow: 0 24px 50px rgba($color-black, 0.7);
+  box-shadow:
+    0 24px 50px rgba($color-black, 0.7);
 
   z-index: 20;
 }
@@ -147,13 +170,17 @@
   padding: 15px 18px;
 
   border: none;
+
   border-radius: 12px;
 
   background: transparent;
+
   color: $color-white;
 
   font-family: inherit;
+
   font-size: 18px;
+
   font-weight: 600;
 
   text-align: left;
@@ -167,6 +194,7 @@
 
 .menu-dropdown__item:hover {
   background: rgba($color-primary, 0.16);
+
   color: $color-primary-light;
 }
 
@@ -174,6 +202,7 @@
   margin-top: 8px;
 
   border-top: 1px solid rgba($color-white, 0.12);
+
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 
@@ -182,23 +211,29 @@
 
 .menu-dropdown__item--salir:hover {
   background: rgba($color-error, 0.16);
+
   color: $color-error;
 }
 
 // ============================================================
-// SECCIONES (cajas)
+// SECCIONES
 // ============================================================
 
 .secciones {
   flex: 1;
 
   display: grid;
+
   grid-template-columns: 1fr 1fr;
 
-  gap: clamp(22px, 2.4vw, 40px);
+  gap: clamp(26px, 2.4vw, 42px);
 
   min-height: 0;
 }
+
+// ============================================================
+// PANEL PRINCIPAL
+// ============================================================
 
 .panel {
   display: flex;
@@ -207,24 +242,31 @@
   min-width: 0;
   min-height: 0;
 
-  padding: clamp(18px, 1.8vw, 28px);
+  padding: clamp(26px, 2.2vw, 38px);
 
-  border: 2px solid rgba($color-primary, 0.5);
-  border-radius: 16px;
+  border: 2px solid rgba($color-primary, 0.55);
+
+  border-radius: 18px;
 
   background-color: rgba($color-white, 0.015);
+
+  box-sizing: border-box;
 }
 
-// ---- cabecera de la caja ----
+// ============================================================
+// CABECERA DEL PANEL
+// ============================================================
 
 .panel__head {
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
 
-  gap: 18px;
+  gap: 24px;
 
-  margin-bottom: clamp(14px, 1.4vw, 22px);
+  margin-bottom: clamp(22px, 2vw, 30px);
 }
 
 .panel__texto {
@@ -232,10 +274,12 @@
 }
 
 .panel__titulo {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
 
-  font-size: clamp(18px, 1.6vw, 26px);
+  font-size: clamp(22px, 1.8vw, 30px);
+
   font-weight: 700;
+
   letter-spacing: 1px;
 
   text-transform: uppercase;
@@ -246,36 +290,48 @@
 
   color: $color-gray;
 
-  font-size: clamp(13px, 1vw, 16px);
+  font-size: clamp(14px, 1vw, 17px);
+
   font-weight: 500;
 }
+
+// ============================================================
+// BOTÓN +
+// ============================================================
 
 .panel__add {
   flex: 0 0 auto;
 
-  width: clamp(40px, 3.6vw, 52px);
-  height: clamp(40px, 3.6vw, 52px);
+  width: clamp(52px, 4vw, 64px);
+  height: clamp(52px, 4vw, 64px);
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   padding: 0;
 
   border: none;
+
   border-radius: 14px;
 
   background-color: $button-background;
+
   color: $button-text;
 
   font-family: inherit;
-  font-size: clamp(22px, 2.2vw, 30px);
+
+  font-size: clamp(26px, 2.3vw, 34px);
+
   font-weight: 700;
+
   line-height: 1;
 
   cursor: pointer;
 
-  box-shadow: 0 12px 26px rgba($color-primary, 0.35);
+  box-shadow:
+    0 12px 28px rgba($color-primary, 0.38);
 
   transition:
     background-color 0.2s ease,
@@ -285,16 +341,21 @@
 
 .panel__add:hover {
   background-color: $button-background-hover;
+
   box-shadow: $button-shadow-hover;
+
   transform: translateY(-2px);
 }
 
 .panel__add:active {
   background-color: $button-background-active;
+
   transform: scale(0.96);
 }
 
-// ---- listado ----
+// ============================================================
+// LISTADO
+// ============================================================
 
 .panel__items {
   flex: 1;
@@ -305,9 +366,10 @@
   list-style: none;
 
   display: flex;
+
   flex-direction: column;
 
-  gap: 8px;
+  gap: 16px;
 
   min-height: 0;
 
@@ -315,88 +377,135 @@
 }
 
 // ============================================================
-// ÍTEM (sede / evento)
+// TARJETAS - SEDE / EVENTO
 // ============================================================
 
 .item {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
-  gap: 16px;
+  gap: 24px;
 
-  padding: clamp(14px, 1.3vw, 20px) clamp(14px, 1.3vw, 20px);
+  // AQUÍ ESTÁ EL CAMBIO PRINCIPAL
+  min-height: clamp(100px, 9vh, 125px);
 
-  border: 1px solid transparent;
-  border-radius: 14px;
+  padding:
+    clamp(22px, 2vw, 30px)
+    clamp(24px, 2.2vw, 34px);
 
-  background-color: rgba($color-white, 0.03);
+  border: 1px solid rgba($color-white, 0.10);
+
+  border-radius: 16px;
+
+  background-color: rgba($color-white, 0.035);
+
+  box-sizing: border-box;
 
   cursor: pointer;
 
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
-    transform 0.15s ease;
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .item:hover {
   background-color: rgba($color-white, 0.07);
-  border-color: rgba($color-primary, 0.4);
+
+  border-color: rgba($color-primary, 0.45);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba($color-black, 0.35);
 }
+
+// ============================================================
+// INFORMACIÓN DE LA TARJETA
+// ============================================================
 
 .item__info {
   display: flex;
+
   flex-direction: column;
 
-  gap: 4px;
+  gap: 8px;
 
   min-width: 0;
 }
 
 .item__titulo {
-  font-size: clamp(17px, 1.4vw, 25px);
+  font-size: clamp(21px, 1.7vw, 29px);
+
   font-weight: 700;
+
   line-height: 1.15;
 }
 
 .item__sub {
   color: $color-gray;
 
-  font-size: clamp(12px, 0.9vw, 15px);
+  font-size: clamp(13px, 1vw, 16px);
+
   font-weight: 600;
-  letter-spacing: 1.4px;
+
+  letter-spacing: 1.5px;
 
   text-transform: uppercase;
 }
 
+// ============================================================
+// CHEVRON
+// ============================================================
+
 .item__chevron {
   flex: 0 0 auto;
 
+  width: clamp(42px, 3.4vw, 54px);
+
+  height: clamp(42px, 3.4vw, 54px);
+
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  color: rgba($color-white, 0.4);
+  color: rgba($color-white, 0.65);
+
+  border-radius: 50%;
+
+  background: rgba($color-white, 0.07);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .item__chevron svg {
-  width: clamp(18px, 1.5vw, 26px);
-  height: clamp(18px, 1.5vw, 26px);
+  width: clamp(24px, 1.8vw, 30px);
+
+  height: clamp(24px, 1.8vw, 30px);
 }
 
 .item:hover .item__chevron {
-  color: $color-primary;
+  color: $color-white;
+
+  background: rgba($color-primary, 0.18);
+
+  transform: translateX(3px);
 }
 
-// ------------------------------------------------------------
-// EVENTOS: barra lateral según el estado
-//   - activo   => verde ($color-success)
-//   - inactivo => rojo  ($color-error)
-// ------------------------------------------------------------
+// ============================================================
+// EVENTOS
+// ============================================================
 
 .item--evento {
-  border-left: 7px solid $color-error;
+  border-left: 8px solid $color-error;
 }
 
 .item--evento.item--activo {
@@ -405,7 +514,9 @@
 
 .item--evento:hover {
   background-color: rgba($color-white, 0.07);
+
   border-color: rgba($color-white, 0.12);
+
   border-left-color: $color-error;
 }
 
@@ -417,19 +528,54 @@
 // RESPONSIVE
 // ============================================================
 
+@media (max-width: 1100px) {
+  .panel {
+    padding: 24px;
+  }
+
+  .item {
+    min-height: 100px;
+  }
+}
+
+// ============================================================
+// TABLET / MÓVIL
+// ============================================================
+
 @media (max-width: 860px) {
+  .menu-principal {
+    padding: 24px;
+  }
 
   .secciones {
     grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .panel {
+    min-height: 420px;
   }
 
   .panel__items {
     overflow: visible;
   }
 
+  .item {
+    min-height: 100px;
+  }
 }
 
+// ============================================================
+// MÓVIL
+// ============================================================
+
 @media (max-width: 560px) {
+  .menu-principal {
+    padding: 20px;
+
+    gap: 24px;
+  }
 
   .cabecera {
     padding: 0 52px 0 0;
@@ -437,6 +583,8 @@
 
   .cabecera__titulo {
     text-align: left;
+
+    font-size: 25px;
   }
 
   .menu-dropdown__toggle {
@@ -444,4 +592,49 @@
     height: 46px;
   }
 
+  .panel {
+    padding: 20px;
+
+    border-radius: 16px;
+  }
+
+  .panel__head {
+    margin-bottom: 20px;
+  }
+
+  .panel__titulo {
+    font-size: 21px;
+  }
+
+  .panel__desc {
+    font-size: 13px;
+  }
+
+  .panel__add {
+    width: 50px;
+    height: 50px;
+  }
+
+  .item {
+    min-height: 92px;
+
+    padding: 20px;
+
+    gap: 14px;
+  }
+
+  .item__titulo {
+    font-size: 20px;
+  }
+
+  .item__sub {
+    font-size: 12px;
+
+    letter-spacing: 1px;
+  }
+
+  .item__chevron {
+    width: 40px;
+    height: 40px;
+  }
 }
