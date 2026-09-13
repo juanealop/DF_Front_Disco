@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { RoleSistema } from '../../models/role-sistema.model';
@@ -13,6 +14,8 @@ import { SolicitudLogin } from '../../dtos/auth/solicitud-login.dto';
 export class AuthService {
 
   private readonly loginUrl = `${environment.apiUrl}/api/auth/login`;
+  private readonly tokenKey = 'token';
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(private readonly http: HttpClient) {}
 
@@ -26,6 +29,27 @@ export class AuthService {
       role: RoleSistema.DISCOTECA
     };
 
-    return this.http.post<RespuestaAutenticacion>(this.loginUrl, solicitud);
+    return this.http.post<RespuestaAutenticacion>(this.loginUrl, solicitud).pipe(
+      tap(({ token }) => this.setToken(token))
+    );
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  getToken(): string | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  logout(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  private setToken(token: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    localStorage.setItem(this.tokenKey, token);
   }
 }
