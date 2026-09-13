@@ -134,6 +134,10 @@ export class MenuPrincipalComponent implements OnInit {
     void this.router.navigate(['/sedes/crear']);
   }
 
+  verSede(sede: Sede): void {
+    void this.router.navigate(['/sedes', sede.idSede], { state: { sede } });
+  }
+
   agregarEvento(): void {
     // TODO: navegar al formulario de creación de evento
   }

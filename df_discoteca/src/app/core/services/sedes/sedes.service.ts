@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Sede } from '../../models/sede.model';
 import { CrearSedeDTO } from '../../dtos/sedes/crear-sede.dto';
+import { ActualizarSedeDTO } from '../../dtos/sedes/actualizar-sede.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,16 @@ export class SedesService {
 
   obtenerPorDiscoteca(idDiscoteca: number): Observable<Sede[]> {
     return this.http.get<Sede[]>(`${this.sedesUrl}/discoteca/${idDiscoteca}`);
+  }
+
+  // GET /api/sedes/{id}
+  // Devuelve el ConsultarSedeDTO del backend (misma forma que Sede).
+  obtenerSede(id: number): Observable<Sede> {
+    return this.http.get<Sede>(`${this.sedesUrl}/${id}`);
+  }
+
+  // PUT /api/sedes/{id}
+  actualizarSede(id: number, dto: ActualizarSedeDTO): Observable<Sede> {
+    return this.http.put<Sede>(`${this.sedesUrl}/${id}`, dto);
   }
 }

@@ -1,0 +1,667 @@
+@use '../../../../../styles/variable' as *;
+
+// ============================================================
+// VER SEDE
+// (mismo estilo base que crear-sede)
+// ============================================================
+
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.ver-sede {
+  width: 100%;
+  min-height: 100vh;
+
+  box-sizing: border-box;
+
+  padding:
+    clamp(28px, 4vw, 56px)
+    clamp(24px, 5vw, 80px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: $color-black;
+
+  // ==========================================================
+  // MISMO FONDO DEL MENÚ PRINCIPAL
+  // ==========================================================
+
+  background-image:
+    radial-gradient(
+      620px 420px at 0% 0%,
+      rgba($color-primary, 0.28),
+      transparent 62%
+    ),
+    radial-gradient(
+      620px 420px at 100% 100%,
+      rgba($color-primary, 0.18),
+      transparent 62%
+    );
+
+  background-repeat: no-repeat;
+
+  color: $color-white;
+}
+
+// ============================================================
+// CONTENEDOR PRINCIPAL
+// SIN BORDE / SIN CUADRO
+// ============================================================
+
+.ver-sede__card {
+  width: 100%;
+  max-width: 1400px;
+
+  box-sizing: border-box;
+
+  padding:
+    clamp(10px, 1vw, 20px)
+    0;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+// ============================================================
+// CABECERA
+// ============================================================
+
+.ver-sede__header {
+  margin-bottom: clamp(30px, 3vw, 48px);
+
+  text-align: center;
+}
+
+.ver-sede__titulo {
+  margin: 0 0 10px;
+
+  font-size: clamp(28px, 3vw, 44px);
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  line-height: 1.1;
+
+  text-transform: uppercase;
+}
+
+.ver-sede__subtitulo {
+  margin: 0;
+
+  color: $color-gray;
+
+  font-size: clamp(14px, 1.1vw, 18px);
+
+  font-weight: 500;
+}
+
+.ver-sede__estado {
+  margin: 0;
+
+  padding: 40px 0;
+
+  color: $color-gray;
+
+  font-size: 17px;
+
+  text-align: center;
+}
+
+// ============================================================
+// GRID PRINCIPAL
+// ============================================================
+
+.ver-sede__grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(400px, 0.85fr);
+
+  gap: clamp(30px, 4vw, 70px);
+
+  align-items: stretch;
+}
+
+// ============================================================
+// CAMPOS
+// ============================================================
+
+.ver-sede__campos {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: clamp(20px, 2vw, 28px);
+
+  min-width: 0;
+}
+
+// ============================================================
+// FILA PAÍS / CIUDAD
+// ============================================================
+
+.ver-sede__fila {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: clamp(18px, 2vw, 28px);
+}
+
+// ============================================================
+// INPUTS / FORMULARIOS
+// ============================================================
+
+.ver-sede__campos label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  width: 100%;
+
+  color: $color-white;
+
+  font-size: clamp(14px, 1vw, 17px);
+
+  font-weight: 600;
+}
+
+.ver-sede__campos input,
+.ver-sede__campos textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1.5px solid $color-primary;
+
+  border-radius: 14px;
+
+  background-color: rgba($color-black, 0.55);
+
+  color: $color-white;
+
+  font-family: inherit;
+
+  font-size: clamp(15px, 1vw, 18px);
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ver-sede__campos input {
+  height: clamp(58px, 5vw, 70px);
+
+  padding: 0 18px;
+}
+
+.ver-sede__campos textarea {
+  min-height: clamp(130px, 10vw, 170px);
+
+  padding: 18px;
+
+  resize: vertical;
+}
+
+.ver-sede__campos input::placeholder,
+.ver-sede__campos textarea::placeholder {
+  color: rgba($color-white, 0.55);
+}
+
+.ver-sede__campos input:focus,
+.ver-sede__campos textarea:focus {
+  border-color: $color-primary;
+
+  background-color: rgba($color-primary, 0.04);
+
+  box-shadow:
+    0 0 0 3px rgba($color-primary, 0.10),
+    0 8px 25px rgba($color-primary, 0.12);
+}
+
+// ============================================================
+// IMÁGENES
+// ============================================================
+
+.ver-sede__imagenes {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+  min-width: 0;
+}
+
+// ============================================================
+// ÁREA DE SUBIDA
+// ============================================================
+
+.upload {
+  width: 100%;
+
+  min-height: clamp(360px, 30vw, 480px);
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  padding: 32px;
+
+  border: 2px dashed rgba($color-white, 0.22);
+
+  border-radius: 20px;
+
+  background-color: rgba($color-white, 0.015);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.upload:hover {
+  border-color: $color-primary;
+
+  background-color: rgba($color-primary, 0.06);
+
+  box-shadow:
+    0 15px 35px rgba($color-primary, 0.08);
+}
+
+.upload__input {
+  display: none;
+}
+
+.upload__icono {
+  width: clamp(52px, 5vw, 72px);
+
+  height: clamp(52px, 5vw, 72px);
+
+  color: $color-primary;
+}
+
+.upload__texto {
+  font-size: clamp(17px, 1.3vw, 22px);
+
+  font-weight: 600;
+}
+
+.upload__ayuda {
+  color: $color-gray;
+
+  font-size: clamp(12px, 0.9vw, 14px);
+}
+
+// ============================================================
+// PREVISUALIZACIÓN DE IMÁGENES
+// ============================================================
+
+.preview {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 12px;
+
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.preview__item {
+  position: relative;
+
+  aspect-ratio: 1;
+
+  overflow: hidden;
+
+  border: 1px solid rgba($color-white, 0.12);
+
+  border-radius: 12px;
+
+  background: rgba($color-white, 0.03);
+}
+
+.preview__item img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.preview__quitar {
+  position: absolute;
+
+  top: 6px;
+  right: 6px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background-color: rgba($color-black, 0.75);
+
+  color: $color-white;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.preview__quitar:hover {
+  background-color: $color-primary;
+
+  transform: scale(1.05);
+}
+
+// ============================================================
+// ERROR
+// ============================================================
+
+.ver-sede__error {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-top: 24px;
+
+  padding: 15px 20px;
+
+  border: 1px solid rgba($color-error, 0.55);
+
+  border-radius: 14px;
+
+  background-color: rgba($color-error, 0.12);
+
+  color: $color-white;
+
+  font-size: 15px;
+
+  text-align: center;
+}
+
+// ============================================================
+// ACCIONES
+// ============================================================
+
+.ver-sede__acciones {
+  width: 100%;
+
+  margin-top: clamp(30px, 3vw, 44px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 18px;
+}
+
+.ver-sede__cancelar {
+  height: 58px;
+
+  padding: 0 32px;
+
+  border: 2px solid rgba($color-white, 0.22);
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: $color-white;
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ver-sede__cancelar:hover {
+  border-color: $color-primary;
+
+  color: $color-primary;
+
+  background-color: rgba($color-primary, 0.05);
+}
+
+.ver-sede__submit {
+  width: 280px;
+  min-height: 58px;
+}
+
+// ============================================================
+// TABLET
+// ============================================================
+
+@media (max-width: 1000px) {
+
+  .ver-sede {
+    padding:
+      32px
+      40px;
+  }
+
+  .ver-sede__grid {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 28px;
+  }
+
+  .upload {
+    min-height: 360px;
+  }
+}
+
+// ============================================================
+// TABLET / MÓVIL
+// ============================================================
+
+@media (max-width: 840px) {
+
+  .ver-sede {
+    padding:
+      28px
+      24px;
+  }
+
+  .ver-sede__card {
+    max-width: 100%;
+  }
+
+  .ver-sede__grid {
+    grid-template-columns: 1fr;
+
+    gap: 32px;
+  }
+
+  .ver-sede__campos {
+    gap: 20px;
+  }
+
+  .ver-sede__imagenes {
+    width: 100%;
+  }
+
+  .upload {
+    min-height: 320px;
+  }
+
+  .ver-sede__acciones {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+
+    justify-content: stretch;
+  }
+
+  .ver-sede__cancelar,
+  .ver-sede__submit {
+    width: 100%;
+  }
+}
+
+// ============================================================
+// MÓVIL
+// ============================================================
+
+@media (max-width: 560px) {
+
+  .ver-sede {
+    padding:
+      24px
+      16px;
+
+    min-height: 100vh;
+  }
+
+  .ver-sede__card {
+    padding: 0;
+  }
+
+  .ver-sede__header {
+    margin-bottom: 28px;
+  }
+
+  .ver-sede__titulo {
+    font-size: 27px;
+  }
+
+  .ver-sede__subtitulo {
+    font-size: 13px;
+
+    line-height: 1.4;
+  }
+
+  .ver-sede__grid {
+    gap: 28px;
+  }
+
+  // País y ciudad uno debajo del otro
+  .ver-sede__fila {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+  .ver-sede__campos {
+    gap: 20px;
+  }
+
+  .ver-sede__campos input {
+    height: 56px;
+  }
+
+  .ver-sede__campos textarea {
+    min-height: 130px;
+  }
+
+  .upload {
+    min-height: 280px;
+
+    padding: 24px;
+  }
+
+  .upload__texto {
+    font-size: 16px;
+  }
+
+  .preview {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+  }
+
+  .ver-sede__acciones {
+    margin-top: 28px;
+
+    gap: 12px;
+  }
+
+  .ver-sede__cancelar {
+    height: 54px;
+
+    font-size: 15px;
+  }
+
+  .ver-sede__submit {
+    min-height: 54px;
+  }
+}
+
+// ============================================================
+// MÓVILES MUY PEQUEÑOS
+// ============================================================
+
+@media (max-width: 380px) {
+
+  .ver-sede {
+    padding:
+      20px
+      12px;
+  }
+
+  .ver-sede__titulo {
+    font-size: 24px;
+  }
+
+  .upload {
+    min-height: 250px;
+
+    padding: 18px;
+  }
+}

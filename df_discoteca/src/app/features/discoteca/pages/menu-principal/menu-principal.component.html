@@ -110,7 +110,12 @@
 
         @for (sede of sedes; track sede.idSede) {
 
-          <li class="item">
+          <li
+            class="item"
+            (click)="verSede(sede)"
+            (keydown.enter)="verSede(sede)"
+            tabindex="0"
+            role="button">
 
             <span class="item__info">
 

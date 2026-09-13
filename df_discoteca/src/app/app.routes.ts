@@ -4,6 +4,7 @@ import { RegisterInfoComponent } from './features/auth/pages/register/register-i
 import { RegisterPayComponent } from './features/auth/pages/register/register-pay/register-pay.component';
 import { MenuPrincipalComponent } from './features/discoteca/pages/menu-principal/menu-principal.component';
 import { CrearSedeComponent } from './features/sedes/pages/crear-sede/crear-sede.component';
+import { VerSedeComponent } from './features/sedes/pages/ver-sede/ver-sede.component';
 import { authGuard, loginRedirectGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -38,6 +39,11 @@ export const routes: Routes = [
   {
     path: 'sedes/crear',
     component: CrearSedeComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'sedes/:id',
+    component: VerSedeComponent,
     canActivate: [authGuard]
   },
   {
