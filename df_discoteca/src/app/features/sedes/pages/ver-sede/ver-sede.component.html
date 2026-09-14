@@ -113,7 +113,12 @@
               <ul class="preview">
                 @for (imagen of imagenes; track imagen.url; let i = $index) {
                   <li class="preview__item">
-                    <img [src]="imagen.url" [alt]="imagen.nombre || 'Imagen de la sede'" />
+                    <img
+                     [src]="imagen.url"
+                     [alt]="imagen.nombre || 'Imagen de la sede'"
+                     (click)="verImagen(imagen.url)"
+                     class="preview__imagen"
+                     />
                     <button
                       type="button"
                       class="preview__quitar"
@@ -126,7 +131,39 @@
               </ul>
             }
 
-          </div>
+          </div>   
+
+
+          @if (imagenSeleccionada) {
+  <div
+    class="imagen-modal"
+    (click)="cerrarImagen()"
+  >
+
+    <div
+      class="imagen-modal__contenido"
+      (click)="$event.stopPropagation()"
+    >
+
+      <button
+        type="button"
+        class="imagen-modal__cerrar"
+        (click)="cerrarImagen()"
+        aria-label="Cerrar imagen"
+      >
+        ×
+      </button>
+
+      <img
+        [src]="imagenSeleccionada"
+        alt="Imagen ampliada de la sede"
+        class="imagen-modal__imagen"
+      />
+
+    </div>
+
+  </div>
+}
 
         </div>
 

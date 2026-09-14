@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { Sede } from '../../models/sede.model';
 import { CrearSedeDTO } from '../../dtos/sedes/crear-sede.dto';
 import { ActualizarSedeDTO } from '../../dtos/sedes/actualizar-sede.dto';
+import { ImagenSede } from '../../models/imagen-sede.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,14 @@ export class SedesService {
 
   obtenerPorDiscoteca(idDiscoteca: number): Observable<Sede[]> {
     return this.http.get<Sede[]>(`${this.sedesUrl}/discoteca/${idDiscoteca}`);
+  }
+
+  agregarImagenes(idSede: number, urls: string[]): Observable<ImagenSede[]> {
+    return this.http.post<ImagenSede[]>(`${this.sedesUrl}/${idSede}/imagenes`, { urls });
+  }
+
+  eliminarImagen(idSede: number, idImagen: number): Observable<void> {
+    return this.http.delete<void>(`${this.sedesUrl}/${idSede}/imagenes/${idImagen}`);
   }
 
   // GET /api/sedes/{id}

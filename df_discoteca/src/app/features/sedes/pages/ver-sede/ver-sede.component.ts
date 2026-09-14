@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, from, of, switchMap } from 'rxjs';
 
 import { SedesService } from '../../../../core/services/sedes/sedes.service';
 import { Sede } from '../../../../core/models/sede.model';
@@ -40,7 +41,8 @@ export class VerSedeComponent implements OnInit {
   direccion = '';
 
   /** Imágenes de la sede (+ las que se agreguen en el front). */
-  imagenes: { nombre: string; url: string }[] = [];
+  imagenes: { idImagen?: number; nombre: string; url: string; archivo?: File }[] = [];
+  private readonly imagenesEliminadas = new Set<number>();
 
   // ============================================================
   // ESTADO
@@ -48,7 +50,8 @@ export class VerSedeComponent implements OnInit {
 
   cargandoSede = false;
   cargando = false;
-  error = '';
+  error = ''; 
+  imagenSeleccionada: string | null = null;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -96,6 +99,14 @@ export class VerSedeComponent implements OnInit {
     });
   }
 
+  verImagen(url: string): void {
+  this.imagenSeleccionada = url;
+}
+
+cerrarImagen(): void {
+  this.imagenSeleccionada = null;
+}
+
   private sedeDesdeEstado(): Sede | null {
     if (typeof window === 'undefined') return null;
 
@@ -114,6 +125,7 @@ export class VerSedeComponent implements OnInit {
     this.direccion = sede.direccion ?? '';
 
     this.imagenes = (sede.imagenes ?? []).map((imagen) => ({
+      idImagen: imagen.idImagen,
       nombre: '',
       url: imagen.url
     }));
@@ -138,7 +150,8 @@ export class VerSedeComponent implements OnInit {
 
       this.imagenes.push({
         nombre: file.name,
-        url: URL.createObjectURL(file)
+        url: URL.createObjectURL(file),
+        archivo: file
       });
     }
 
@@ -147,6 +160,10 @@ export class VerSedeComponent implements OnInit {
 
   quitarImagen(index: number): void {
     const [imagen] = this.imagenes.splice(index, 1);
+
+    if (imagen?.idImagen !== undefined) {
+      this.imagenesEliminadas.add(imagen.idImagen);
+    }
 
     if (imagen && imagen.url.startsWith('blob:')) {
       URL.revokeObjectURL(imagen.url);
@@ -159,35 +176,44 @@ export class VerSedeComponent implements OnInit {
 
   actualizarSede(): void {
 
-    if (this.cargando || this.idSede === null) {
-      return;
-    }
-
-    this.cargando = true;
-    this.error = '';
-
-    const dto: ActualizarSedeDTO = {
-      nombre: this.nombre.trim(),
-      descripcion: this.descripcion.trim(),
-      direccion: this.direccion.trim(),
-      ciudad: this.ciudad.trim(),
-      pais: this.pais.trim()
-    };
-
-    this.sedesService.actualizarSede(this.idSede, dto).subscribe({
-      next: (sede) => {
-        this.cargando = false;
-        this.cargarSede(sede);
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err);
-        this.cargando = false;
-        this.error = err.status === 401
-          ? 'Tu sesión expiró. Inicia sesión nuevamente para actualizar la sede.'
-          : err.error?.message ?? 'No se pudo actualizar la sede. Verifica los datos e intenta de nuevo.';
-      }
-    });
+  if (this.cargando || this.idSede === null) {
+    return;
   }
+
+  this.cargando = true;
+  this.error = '';
+
+  const dto: ActualizarSedeDTO = {
+    nombre: this.nombre.trim(),
+    descripcion: this.descripcion.trim(),
+    direccion: this.direccion.trim(),
+    ciudad: this.ciudad.trim(),
+    pais: this.pais.trim()
+  };
+
+  from(this.convertirImagenesADataUrl()).pipe(
+    switchMap((urls) => this.sedesService.actualizarSede(this.idSede!, dto).pipe(
+      switchMap(() => this.eliminarYAgregarImagenes(urls))
+    ))
+  ).subscribe({
+    next: () => {
+      this.cargando = false;
+
+      // Después de actualizar correctamente,
+      // regresar al menú principal
+      void this.router.navigate(['/menu-principal']);
+    },
+    error: (err: HttpErrorResponse) => {
+      console.error(err);
+      this.cargando = false;
+
+      this.error = err.status === 401
+        ? 'Tu sesión expiró. Inicia sesión nuevamente para actualizar la sede.'
+        : err.error?.message ??
+          'No se pudo actualizar la sede. Verifica los datos e intenta de nuevo.';
+    }
+  });
+}
 
   // ============================================================
   // VOLVER ATRÁS
@@ -195,6 +221,33 @@ export class VerSedeComponent implements OnInit {
 
   volverAtras(): void {
     void this.router.navigate(['/menu-principal']);
+  }
+
+  private eliminarYAgregarImagenes(urls: string[]) {
+    const eliminaciones = [...this.imagenesEliminadas].map((idImagen) =>
+      this.sedesService.eliminarImagen(this.idSede!, idImagen)
+    );
+
+    const eliminar = eliminaciones.length > 0 ? forkJoin(eliminaciones) : of([]);
+
+    return eliminar.pipe(
+      switchMap(() => urls.length > 0
+        ? this.sedesService.agregarImagenes(this.idSede!, urls)
+        : of([]))
+    );
+  }
+
+  private convertirImagenesADataUrl(): Promise<string[]> {
+    return Promise.all(
+      this.imagenes
+        .filter((imagen) => imagen.archivo)
+        .map(({ archivo }) => new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(new Error(`No se pudo leer ${archivo?.name}.`));
+          reader.readAsDataURL(archivo!);
+        }))
+    );
   }
 
 }

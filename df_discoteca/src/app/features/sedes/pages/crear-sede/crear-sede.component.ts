@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { from, of, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { SedesService } from '../../../../core/services/sedes/sedes.service';
@@ -32,7 +33,7 @@ export class CrearSedeComponent {
   direccion = '';
 
   /** Imágenes seleccionadas (por ahora solo se manejan en el front). */
-  imagenes: { nombre: string; url: string }[] = [];
+  imagenes: { nombre: string; url: string; archivo: File }[] = [];
 
   // ============================================================
   // ESTADO
@@ -66,7 +67,8 @@ export class CrearSedeComponent {
 
       this.imagenes.push({
         nombre: file.name,
-        url: URL.createObjectURL(file)
+        url: URL.createObjectURL(file),
+        archivo: file
       });
     }
 
@@ -104,7 +106,13 @@ export class CrearSedeComponent {
       idDiscoteca: this.authService.getUsuarioId() ?? 0
     };
 
-    this.sedesService.crearSede(dto).subscribe({
+    from(this.convertirImagenesADataUrl()).pipe(
+      switchMap((urls) => this.sedesService.crearSede(dto).pipe(
+        switchMap((sede) => urls.length > 0
+          ? this.sedesService.agregarImagenes(sede.idSede, urls)
+          : of([]))
+      ))
+    ).subscribe({
       next: () => {
         this.cargando = false;
         void this.router.navigate(['/menu-principal']);
@@ -121,6 +129,17 @@ export class CrearSedeComponent {
 
   volver(): void {
     void this.router.navigate(['/menu-principal']);
+  }
+
+  private convertirImagenesADataUrl(): Promise<string[]> {
+    return Promise.all(
+      this.imagenes.map(({ archivo }) => new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(new Error(`No se pudo leer ${archivo.name}.`));
+        reader.readAsDataURL(archivo);
+      }))
+    );
   }
 
 }

@@ -665,3 +665,90 @@
     padding: 18px;
   }
 }
+
+
+
+.preview__imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.preview__imagen:hover {
+  transform: scale(1.03);
+}
+
+
+// ============================================================
+// MODAL DE IMAGEN
+// ============================================================
+
+.imagen-modal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  cursor: pointer;
+}
+
+.imagen-modal__contenido {
+  position: relative;
+
+  max-width: 90vw;
+  max-height: 90vh;
+
+  cursor: default;
+}
+
+.imagen-modal__imagen {
+  display: block;
+
+  max-width: 90vw;
+  max-height: 85vh;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+}
+
+.imagen-modal__cerrar {
+  position: absolute;
+
+  top: -45px;
+  right: 0;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+
+  font-size: 28px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.imagen-modal__cerrar:hover {
+  background: #b00020;
+}
