@@ -134,17 +134,15 @@
 }
 
 // ============================================================
-// FILA FECHA INICIO / FECHA FINAL
-// En el panel de programación van apiladas (los campos de fecha
-// y hora son anchos y lado a lado se encimaban).
+// FILA FECHA INICIO / FECHA FINAL (obligatorias)
 // ============================================================
 
 .crear-evento__fila {
   display: grid;
 
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
 
-  gap: clamp(18px, 2vw, 24px);
+  gap: clamp(16px, 2vw, 24px);
 }
 
 // ============================================================

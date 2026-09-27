@@ -63,9 +63,30 @@
             [maxlength]="500"
           />
 
+          <!-- FECHAS (obligatorias, fuera del recuadro) -->
+          <div class="crear-evento__fila">
+
+            <app-datefield
+              name="fechaInicio"
+              type="datetime-local"
+              label="Fecha inicio"
+              [(ngModel)]="fechaInicio"
+              [required]="true"
+            />
+
+            <app-datefield
+              name="fechaFin"
+              type="datetime-local"
+              label="Fecha final"
+              [(ngModel)]="fechaFin"
+              [required]="true"
+            />
+
+          </div>
+
         </div>
 
-        <!-- PROGRAMACIÓN -->
+        <!-- PROGRAMACIÓN (opcional) -->
         <div class="crear-evento__programacion">
 
           <label class="programar">
@@ -79,26 +100,6 @@
           </label>
 
           @if (programar) {
-
-            <div class="crear-evento__fila">
-
-              <app-datefield
-                name="fechaInicio"
-                type="datetime-local"
-                label="Fecha inicio"
-                [(ngModel)]="fechaInicio"
-                [required]="true"
-              />
-
-              <app-datefield
-                name="fechaFin"
-                type="datetime-local"
-                label="Fecha final"
-                [(ngModel)]="fechaFin"
-                [required]="true"
-              />
-
-            </div>
 
             <!-- FECHAS PROGRAMADAS -->
             <div class="fechas">

@@ -200,16 +200,14 @@ export class CrearEventoComponent implements OnInit {
       return;
     }
 
-    if (this.programar) {
-      if (!this.fechaInicio || !this.fechaFin) {
-        this.error = 'Indica la fecha de inicio y la fecha final del evento.';
-        return;
-      }
+    if (!this.fechaInicio || !this.fechaFin) {
+      this.error = 'Indica la fecha de inicio y la fecha final del evento.';
+      return;
+    }
 
-      if (new Date(this.fechaFin) < new Date(this.fechaInicio)) {
-        this.error = 'La fecha final debe ser posterior a la fecha de inicio.';
-        return;
-      }
+    if (new Date(this.fechaFin) < new Date(this.fechaInicio)) {
+      this.error = 'La fecha final debe ser posterior a la fecha de inicio.';
+      return;
     }
 
     this.cargando = true;
@@ -217,8 +215,8 @@ export class CrearEventoComponent implements OnInit {
     const dto: CrearEventoDTO = {
       nombre: this.nombre.trim(),
       descripcion: this.descripcion.trim(),
-      fechaInicio: this.programar ? this.aLocalDateTime(this.fechaInicio) : null,
-      fechaFin: this.programar ? this.aLocalDateTime(this.fechaFin) : null,
+      fechaInicio: this.aLocalDateTime(this.fechaInicio),
+      fechaFin: this.aLocalDateTime(this.fechaFin),
       idSede: this.idSede,
       urls: this.imagenes.map((imagen) => imagen.url),
       eventoProgramado: this.programar ? [...this.eventoProgramado] : []
