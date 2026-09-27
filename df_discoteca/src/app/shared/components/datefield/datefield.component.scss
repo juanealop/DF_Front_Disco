@@ -365,35 +365,6 @@
 }
 
 // ============================================================
-// LEYENDA
-// ============================================================
-
-.picker__leyenda {
-  display: flex;
-  flex-direction: column;
-
-  gap: 3px;
-
-  margin: 0;
-  padding: 10px 12px;
-
-  list-style: none;
-
-  border-radius: 10px;
-
-  background-color: rgba($color-white, 0.03);
-
-  color: $color-gray;
-
-  font-size: 11px;
-  line-height: 1.35;
-
-  b {
-    color: $color-white;
-  }
-}
-
-// ============================================================
 // PIE (Borrar / Hoy)
 // ============================================================
 
