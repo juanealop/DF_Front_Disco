@@ -1,1 +1,232 @@
-<p>crear-evento works!</p>
+<div class="crear-evento">
+
+  <section class="crear-evento__card">
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+    <header class="crear-evento__header">
+      <h1 class="crear-evento__titulo">Crear evento</h1>
+      <p class="crear-evento__subtitulo">Completa los datos de tu nuevo evento</p>
+    </header>
+
+    <!-- =====================================================
+         FORMULARIO
+         ===================================================== -->
+    <form class="crear-evento__form" (ngSubmit)="crearEvento()">
+
+      <div class="crear-evento__grid">
+
+        <!-- DATOS -->
+        <div class="crear-evento__campos">
+
+          <!-- SEDE -->
+          <label class="crear-evento__select">
+            <span class="crear-evento__select-label">Sede</span>
+
+            <select
+              name="idSede"
+              class="crear-evento__select-control"
+              [(ngModel)]="idSede"
+              [disabled]="cargandoSedes">
+
+              <option [ngValue]="null" disabled>
+                {{ cargandoSedes ? 'Cargando sedes…' : 'Selecciona una sede' }}
+              </option>
+
+              @for (sede of sedes; track sede.idSede) {
+                <option [ngValue]="sede.idSede">
+                  {{ sede.nombre }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+          <app-textfield
+            name="nombre"
+            label="Nombre"
+            placeholder="Ej. Noche de salsa"
+            autocomplete="off"
+            [(ngModel)]="nombre"
+            [required]="true"
+            [maxlength]="120"
+          />
+
+          <app-textfield
+            name="descripcion"
+            label="Descripción"
+            placeholder="Cuenta algo sobre el evento (opcional)"
+            autocomplete="off"
+            [(ngModel)]="descripcion"
+            [multiline]="true"
+            [maxlength]="500"
+          />
+
+        </div>
+
+        <!-- PROGRAMACIÓN -->
+        <div class="crear-evento__programacion">
+
+          <label class="programar">
+            <input
+              type="checkbox"
+              class="programar__check"
+              name="programar"
+              [(ngModel)]="programar"
+            />
+            <span class="programar__texto">¿Quieres programarlo?</span>
+          </label>
+
+          @if (programar) {
+
+            <div class="crear-evento__fila">
+
+              <app-textfield
+                name="fechaInicio"
+                type="datetime-local"
+                label="Fecha inicio"
+                [(ngModel)]="fechaInicio"
+              />
+
+              <app-textfield
+                name="fechaFin"
+                type="datetime-local"
+                label="Fecha final"
+                [(ngModel)]="fechaFin"
+              />
+
+            </div>
+
+            <!-- FECHAS PROGRAMADAS -->
+            <div class="fechas">
+
+              <h2 class="fechas__titulo">Fechas programadas</h2>
+
+              <div class="fechas__add">
+                <app-textfield
+                  name="nuevaFecha"
+                  type="datetime-local"
+                  label="Agregar fecha"
+                  [(ngModel)]="nuevaFecha"
+                />
+
+                <button
+                  type="button"
+                  class="fechas__boton"
+                  (click)="agregarFechaProgramada()">
+                  Agregar
+                </button>
+              </div>
+
+              @if (eventoProgramado.length) {
+                <ul class="fechas__lista">
+                  @for (fecha of eventoProgramado; track fecha; let i = $index) {
+                    <li class="fechas__item">
+                      <span class="fechas__valor">{{ fecha }}</span>
+                      <button
+                        type="button"
+                        class="fechas__quitar"
+                        aria-label="Quitar fecha"
+                        (click)="quitarFechaProgramada(i)">
+                        ×
+                      </button>
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <p class="fechas__vacio">
+                  Aún no has agregado fechas programadas.
+                </p>
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+      <!-- =====================================================
+           IMÁGENES
+           ===================================================== -->
+      <div class="crear-evento__imagenes">
+
+        <label class="upload" for="evento-imagenes">
+
+          <svg class="upload__icono" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4.5" width="18" height="15" rx="3" />
+            <circle cx="8.5" cy="10" r="1.6" />
+            <path d="M21 15.5l-4.5-4.5L7 20.5" />
+          </svg>
+
+          <span class="upload__texto">
+            Sube hasta {{ maxImagenes }} imágenes del evento
+          </span>
+
+          <span class="upload__ayuda">
+            PNG o JPG · máximo {{ maxImagenes }} imágenes
+          </span>
+
+          <input
+            id="evento-imagenes"
+            class="upload__input"
+            type="file"
+            accept="image/*"
+            multiple
+            (change)="onImagenesSeleccionadas($event)"
+          />
+
+        </label>
+
+        @if (imagenes.length) {
+          <ul class="preview">
+            @for (imagen of imagenes; track imagen.url; let i = $index) {
+              <li class="preview__item">
+                <img [src]="imagen.url" [alt]="imagen.nombre" />
+                <button
+                  type="button"
+                  class="preview__quitar"
+                  aria-label="Quitar imagen"
+                  (click)="quitarImagen(i)">
+                  ×
+                </button>
+              </li>
+            }
+          </ul>
+        }
+
+      </div>
+
+      @if (error) {
+        <div class="crear-evento__error">{{ error }}</div>
+      }
+
+      <!-- ACCIONES -->
+      <footer class="crear-evento__acciones">
+
+        <button
+          type="button"
+          class="crear-evento__cancelar"
+          (click)="volver()">
+          Cancelar
+        </button>
+
+        <div class="crear-evento__submit">
+          <app-button
+            text="Crear evento"
+            type="submit"
+            [loading]="cargando"
+          />
+        </div>
+
+      </footer>
+
+    </form>
+
+  </section>
+
+</div>

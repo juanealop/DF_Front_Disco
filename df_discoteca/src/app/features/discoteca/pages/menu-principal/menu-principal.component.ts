@@ -139,7 +139,7 @@ export class MenuPrincipalComponent implements OnInit {
   }
 
   agregarEvento(): void {
-    // TODO: navegar al formulario de creación de evento
+    void this.router.navigate(['/eventos/crear']);
   }
 
   // ============================================================
