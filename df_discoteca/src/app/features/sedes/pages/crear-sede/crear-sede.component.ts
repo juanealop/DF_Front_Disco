@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { from, of, switchMap } from 'rxjs';
+import { from, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { SedesService } from '../../../../core/services/sedes/sedes.service';
@@ -97,7 +97,7 @@ export class CrearSedeComponent {
     this.cargando = true;
     this.error = '';
 
-    const dto: CrearSedeDTO = {
+    const datosSede: Omit<CrearSedeDTO, 'urls'> = {
       nombre: this.nombre.trim(),
       descripcion: this.descripcion.trim(),
       direccion: this.direccion.trim(),
@@ -107,11 +107,7 @@ export class CrearSedeComponent {
     };
 
     from(this.convertirImagenesADataUrl()).pipe(
-      switchMap((urls) => this.sedesService.crearSede(dto).pipe(
-        switchMap((sede) => urls.length > 0
-          ? this.sedesService.agregarImagenes(sede.idSede, urls)
-          : of([]))
-      ))
+      switchMap((urls) => this.sedesService.crearSede({ ...datosSede, urls }))
     ).subscribe({
       next: () => {
         this.cargando = false;

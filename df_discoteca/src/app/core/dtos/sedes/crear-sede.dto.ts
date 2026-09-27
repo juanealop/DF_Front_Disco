@@ -6,4 +6,5 @@ export interface CrearSedeDTO {
   ciudad: string;
   pais: string;
   idDiscoteca: number;
+  urls: string[];
 }
