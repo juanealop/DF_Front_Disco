@@ -20,17 +20,22 @@ import { TextfieldComponent } from '../../../../shared/components/textfield/text
 })
 export class CrearEventoComponent implements OnInit {
 
+  /** Máximo de imágenes que se pueden subir (según la maqueta). */
+  readonly maxImagenes = 8;
+
   // ============================================================
   // DATOS DEL FORMULARIO
   // ============================================================
 
   nombre = '';
   descripcion = '';
-  direccion = '';
-  ciudad = '';
 
   /** Sede a la que pertenece el evento (relación obligatoria). */
   idSede: number | null = null;
+
+  // ============================================================
+  // PROGRAMACIÓN
+  // ============================================================
 
   /** ¿Quieres programarlo? Si está apagado el evento no lleva fechas. */
   programar = false;
@@ -38,6 +43,18 @@ export class CrearEventoComponent implements OnInit {
   /** Valores de los inputs datetime-local ("YYYY-MM-DDTHH:mm"). */
   fechaInicio = '';
   fechaFin = '';
+
+  /** Fecha que se está agregando a "Fechas programadas". */
+  nuevaFecha = '';
+
+  /** Fechas programadas (LocalDateTime ISO sin zona). */
+  eventoProgramado: string[] = [];
+
+  // ============================================================
+  // IMÁGENES (lógica de front)
+  // ============================================================
+
+  imagenes: { nombre: string; url: string }[] = [];
 
   // ============================================================
   // SEDES DISPONIBLES
@@ -92,11 +109,26 @@ export class CrearEventoComponent implements OnInit {
   }
 
   // ============================================================
-  // FECHAS PROGRAMADAS
+  // FECHAS PROGRAMADAS (lógica de front)
   // ============================================================
 
-  get tieneFechasProgramadas(): boolean {
-    return this.programar && !!this.fechaInicio && !!this.fechaFin;
+  agregarFechaProgramada(): void {
+    const valor = this.aLocalDateTime(this.nuevaFecha);
+
+    if (!valor) {
+      return;
+    }
+
+    if (!this.eventoProgramado.includes(valor)) {
+      this.eventoProgramado.push(valor);
+      this.eventoProgramado.sort();
+    }
+
+    this.nuevaFecha = '';
+  }
+
+  quitarFechaProgramada(index: number): void {
+    this.eventoProgramado.splice(index, 1);
   }
 
   /**
@@ -108,6 +140,41 @@ export class CrearEventoComponent implements OnInit {
       return null;
     }
     return valor.length === 16 ? `${valor}:00` : valor;
+  }
+
+  // ============================================================
+  // IMÁGENES (lógica de front)
+  // ============================================================
+
+  onImagenesSeleccionadas(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = input.files ? Array.from(input.files) : [];
+
+    for (const file of files) {
+      if (this.imagenes.length >= this.maxImagenes) {
+        break;
+      }
+
+      if (!file.type.startsWith('image/')) {
+        continue;
+      }
+
+      this.imagenes.push({
+        nombre: file.name,
+        url: URL.createObjectURL(file)
+      });
+    }
+
+    // Permitir volver a seleccionar el mismo archivo.
+    input.value = '';
+  }
+
+  quitarImagen(index: number): void {
+    const [imagen] = this.imagenes.splice(index, 1);
+
+    if (imagen) {
+      URL.revokeObjectURL(imagen.url);
+    }
   }
 
   // ============================================================
@@ -149,11 +216,11 @@ export class CrearEventoComponent implements OnInit {
     const dto: CrearEventoDTO = {
       nombre: this.nombre.trim(),
       descripcion: this.descripcion.trim(),
-      direccion: this.direccion.trim(),
-      ciudad: this.ciudad.trim(),
       fechaInicio: this.programar ? this.aLocalDateTime(this.fechaInicio) : null,
       fechaFin: this.programar ? this.aLocalDateTime(this.fechaFin) : null,
-      idSede: this.idSede
+      idSede: this.idSede,
+      urls: this.imagenes.map((imagen) => imagen.url),
+      eventoProgramado: this.programar ? [...this.eventoProgramado] : []
     };
 
     this.eventosService.crearEvento(dto).subscribe({

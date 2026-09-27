@@ -111,8 +111,8 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1.15fr)
-    minmax(360px, 0.85fr);
+    minmax(0, 1.05fr)
+    minmax(360px, 0.95fr);
 
   gap: clamp(30px, 4vw, 70px);
 
@@ -134,7 +134,7 @@
 }
 
 // ============================================================
-// FILA DIRECCIÓN / CIUDAD
+// FILA FECHA INICIO / FECHA FINAL
 // ============================================================
 
 .crear-evento__fila {
@@ -142,7 +142,7 @@
 
   grid-template-columns: 1fr 1fr;
 
-  gap: clamp(18px, 2vw, 28px);
+  gap: clamp(16px, 2vw, 24px);
 }
 
 // ============================================================
@@ -231,7 +231,7 @@
 
   flex-direction: column;
 
-  gap: clamp(18px, 2vw, 26px);
+  gap: clamp(18px, 2vw, 24px);
 
   min-width: 0;
 
@@ -299,6 +299,54 @@
   text-transform: uppercase;
 }
 
+.fechas__add {
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 12px;
+}
+
+.fechas__add app-textfield {
+  flex: 1 1 auto;
+
+  min-width: 0;
+}
+
+.fechas__boton {
+  flex: 0 0 auto;
+
+  height: 58px;
+
+  padding: 0 22px;
+
+  border: 1.5px solid $color-primary;
+
+  border-radius: 14px;
+
+  background-color: rgba($color-primary, 0.12);
+
+  color: $color-white;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.fechas__boton:hover {
+  background-color: rgba($color-primary, 0.22);
+
+  box-shadow: 0 8px 20px rgba($color-primary, 0.15);
+}
+
 .fechas__lista {
   display: flex;
 
@@ -331,18 +379,44 @@
   background-color: rgba($color-white, 0.03);
 }
 
-.fechas__label {
-  color: $color-gray;
-
-  font-size: 14px;
-
-  font-weight: 600;
-}
-
 .fechas__valor {
   font-size: 15px;
 
   font-weight: 600;
+}
+
+.fechas__quitar {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background-color: rgba($color-black, 0.75);
+
+  color: $color-white;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.fechas__quitar:hover {
+  background-color: $color-primary;
+
+  transform: scale(1.05);
 }
 
 .fechas__vacio {
@@ -353,6 +427,164 @@
   font-size: 14px;
 
   line-height: 1.5;
+}
+
+// ============================================================
+// IMÁGENES
+// ============================================================
+
+.crear-evento__imagenes {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+  margin-top: clamp(30px, 3vw, 44px);
+}
+
+.upload {
+  width: 100%;
+
+  min-height: clamp(220px, 18vw, 300px);
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  padding: 32px;
+
+  border: 2px dashed rgba($color-white, 0.22);
+
+  border-radius: 20px;
+
+  background-color: rgba($color-white, 0.015);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.upload:hover {
+  border-color: $color-primary;
+
+  background-color: rgba($color-primary, 0.06);
+
+  box-shadow:
+    0 15px 35px rgba($color-primary, 0.08);
+}
+
+.upload__input {
+  display: none;
+}
+
+.upload__icono {
+  width: clamp(52px, 5vw, 72px);
+
+  height: clamp(52px, 5vw, 72px);
+
+  color: $color-primary;
+}
+
+.upload__texto {
+  font-size: clamp(17px, 1.3vw, 22px);
+
+  font-weight: 600;
+}
+
+.upload__ayuda {
+  color: $color-gray;
+
+  font-size: clamp(12px, 0.9vw, 14px);
+}
+
+.preview {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 12px;
+
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.preview__item {
+  position: relative;
+
+  aspect-ratio: 1;
+
+  overflow: hidden;
+
+  border: 1px solid rgba($color-white, 0.12);
+
+  border-radius: 12px;
+
+  background: rgba($color-white, 0.03);
+}
+
+.preview__item img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.preview__quitar {
+  position: absolute;
+
+  top: 6px;
+  right: 6px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background-color: rgba($color-black, 0.75);
+
+  color: $color-white;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.preview__quitar:hover {
+  background-color: $color-primary;
+
+  transform: scale(1.05);
 }
 
 // ============================================================
@@ -527,7 +759,17 @@
   .crear-evento__fila {
     grid-template-columns: 1fr;
 
-    gap: 20px;
+    gap: 18px;
+  }
+
+  .fechas__add {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .fechas__boton {
+    width: 100%;
   }
 
   .crear-evento__acciones {
@@ -544,6 +786,12 @@
 
   .crear-evento__submit {
     min-height: 54px;
+  }
+
+  .preview {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
   }
 }
 
