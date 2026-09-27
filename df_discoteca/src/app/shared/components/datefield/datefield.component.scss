@@ -1,7 +1,8 @@
 @use '../../../../styles/variable' as *;
 
 // ============================================================
-// DATEFIELD (fecha / hora) con selector propio y COMPACTO
+// DATEFIELD (fecha / hora) con selector propio
+// Calendario a la izquierda + Horas/Minutos/AM-PM a la derecha
 // Colores tomados de styles/_variable.scss
 // ============================================================
 
@@ -120,7 +121,7 @@
 }
 
 // ============================================================
-// PANEL (compacto: calendario arriba, hora debajo)
+// PANEL (calendario izquierda | hora derecha)
 // ============================================================
 
 .picker {
@@ -133,13 +134,15 @@
 
   box-sizing: border-box;
 
-  width: 300px;
-  max-width: 90vw;
+  width: auto;
+  max-width: 92vw;
 
-  padding: 16px;
+  padding: 14px;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
   gap: 14px;
 
   border: 1.5px solid rgba($color-primary, 0.55);
@@ -155,7 +158,8 @@
 // ============================================================
 
 .picker__calendario {
-  width: 100%;
+  flex: 0 0 246px;
+  width: 246px;
 
   display: flex;
   flex-direction: column;
@@ -274,27 +278,24 @@
 }
 
 // ============================================================
-// HORA (Horas / Minutos / a.m.-p.m.)
+// HORA (Horas / Minutos / AM-PM) — a la derecha del calendario
 // ============================================================
 
 .picker__hora {
   display: flex;
+  align-items: stretch;
 
   gap: 8px;
 }
 
 .picker__col {
-  flex: 1 1 0;
-
-  min-width: 0;
-
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
 .picker__col--periodo {
-  flex: 0 0 66px;
+  flex: 0 0 56px;
 }
 
 .picker__col-titulo {
@@ -310,8 +311,10 @@
 }
 
 .picker__lista {
-  width: 100%;
-  max-height: 150px;
+  flex: 1 1 auto;
+
+  width: 48px;
+  min-height: 190px;
 
   margin: 0;
   padding: 4px;
@@ -328,6 +331,11 @@
   border-radius: 10px;
 
   background-color: rgba($color-white, 0.03);
+}
+
+.picker__col--periodo .picker__lista {
+  width: auto;
+  min-width: 56px;
 }
 
 .picker__opcion {
@@ -369,6 +377,8 @@
 // ============================================================
 
 .picker__pie {
+  flex: 1 1 100%;
+
   display: flex;
   justify-content: flex-end;
 
@@ -376,17 +386,17 @@
 }
 
 .picker__accion {
-  padding: 8px 18px;
+  padding: 7px 16px;
 
   border: 1px solid rgba($color-white, 0.25);
   border-radius: 999px;
 
-  background: transparent;
+  background-color: rgba($color-black, 0.7);
 
   color: $color-white;
 
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 
   cursor: pointer;
@@ -406,13 +416,23 @@
 }
 
 // ============================================================
-// MÓVIL
+// MÓVIL (vuelve a apilado)
 // ============================================================
 
 @media (max-width: 560px) {
 
   .picker {
-    width: 280px;
-    padding: 14px;
+    flex-direction: column;
+
+    width: min(90vw, 300px);
+  }
+
+  .picker__calendario {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .picker__lista {
+    min-height: 150px;
   }
 }
