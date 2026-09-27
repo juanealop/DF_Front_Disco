@@ -1,4 +1,4 @@
-<label class="datefield">
+<div class="datefield">
 
   @if (label) {
     <span class="datefield__label">
@@ -6,50 +6,183 @@
     </span>
   }
 
-  <span class="datefield__wrap">
+  <div class="datefield__wrap">
 
     <input
-      #input
       class="datefield__control"
-      [type]="type"
-      [value]="value"
+      type="text"
+      readonly
+      [value]="textoMostrado"
+      [placeholder]="textoPlaceholder"
       [disabled]="disabled"
       [attr.required]="required ? '' : null"
-      [attr.min]="min"
-      [attr.max]="max"
-      (input)="onInput($any($event).target.value)"
+      (click)="alternarPanel()"
       (blur)="onBlur()"
     />
 
     <button
       type="button"
       class="datefield__icono"
-      aria-label="Abrir selector"
+      aria-label="Abrir selector de fecha y hora"
       [disabled]="disabled"
-      (click)="abrirSelector(input)">
+      (click)="alternarPanel()">
 
       @if (type === 'time') {
-
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
              aria-hidden="true">
           <circle cx="12" cy="12" r="9" />
           <path d="M12 7v5l3 2" />
         </svg>
-
       } @else {
-
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
              aria-hidden="true">
           <rect x="3" y="4.5" width="18" height="16" rx="3" />
           <path d="M3 9.5h18M8 3v3M16 3v3" />
         </svg>
-
       }
 
     </button>
 
-  </span>
+    <!-- =====================================================
+         PANEL (calendario + hora)
+         ===================================================== -->
+    @if (abierto) {
 
-</label>
+      <div class="picker" role="dialog" aria-label="Selector de fecha y hora">
+
+        <!-- CALENDARIO -->
+        @if (type !== 'time') {
+
+          <div class="picker__calendario">
+
+            <header class="picker__head">
+              <button
+                type="button"
+                class="picker__nav"
+                aria-label="Mes anterior"
+                (click)="mesAnterior()">
+                ‹
+              </button>
+
+              <span class="picker__titulo">{{ tituloMes }}</span>
+
+              <button
+                type="button"
+                class="picker__nav"
+                aria-label="Mes siguiente"
+                (click)="mesSiguiente()">
+                ›
+              </button>
+            </header>
+
+            <div class="picker__semana">
+              @for (diaSemana of diasSemana; track diaSemana) {
+                <span class="picker__dia-semana">{{ diaSemana }}</span>
+              }
+            </div>
+
+            <div class="picker__dias">
+              @for (dia of dias; track dia.fecha.getTime()) {
+                <button
+                  type="button"
+                  class="picker__dia"
+                  [class.picker__dia--otro]="!dia.delMes"
+                  [class.picker__dia--hoy]="dia.hoy"
+                  [class.picker__dia--sel]="esSeleccionado(dia)"
+                  (click)="seleccionarDia(dia)">
+                  {{ dia.numero }}
+                </button>
+              }
+            </div>
+
+          </div>
+
+        }
+
+        <!-- HORA (aparece después de elegir la fecha) -->
+        @if (muestraHora) {
+
+          <div class="picker__hora">
+
+            <div class="picker__col">
+              <span class="picker__col-titulo">Horas</span>
+              <ul class="picker__lista">
+                @for (hora of horas; track hora) {
+                  <li>
+                    <button
+                      type="button"
+                      class="picker__opcion"
+                      [class.picker__opcion--sel]="hora === hora12"
+                      (click)="seleccionarHora(hora)">
+                      {{ pad(hora) }}
+                    </button>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="picker__col">
+              <span class="picker__col-titulo">Minutos</span>
+              <ul class="picker__lista">
+                @for (minuto of minutos; track minuto) {
+                  <li>
+                    <button
+                      type="button"
+                      class="picker__opcion"
+                      [class.picker__opcion--sel]="minuto === this.minuto"
+                      (click)="seleccionarMinuto(minuto)">
+                      {{ pad(minuto) }}
+                    </button>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="picker__col picker__col--periodo">
+              <span class="picker__col-titulo">a.m. / p.m.</span>
+              <ul class="picker__lista">
+                @for (periodo of periodos; track periodo) {
+                  <li>
+                    <button
+                      type="button"
+                      class="picker__opcion"
+                      [class.picker__opcion--sel]="periodo === this.periodo"
+                      (click)="seleccionarPeriodo(periodo)">
+                      {{ periodo }}
+                    </button>
+                  </li>
+                }
+              </ul>
+            </div>
+
+          </div>
+
+        }
+
+        <!-- LEYENDA -->
+        <ul class="picker__leyenda">
+          <li><b>Día seleccionado:</b> resaltado en rojo con texto blanco.</li>
+          <li><b>Horas:</b> selección en formato 24 horas.</li>
+          <li><b>Minutos:</b> selección de minutos.</li>
+          <li><b>a.m. / p.m.:</b> selector de periodo.</li>
+        </ul>
+
+        <!-- PIE -->
+        <footer class="picker__pie">
+          <button type="button" class="picker__accion" (click)="borrar()">
+            Borrar
+          </button>
+          <button type="button" class="picker__accion" (click)="usarHoy()">
+            Hoy
+          </button>
+        </footer>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>
