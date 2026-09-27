@@ -6,5 +6,7 @@ export interface Evento {
   descripcion: string;
   fechaInicio: string;
   fechaFin: string;
+  eventoProgramado: string[];
+  activa: boolean | null;
   sede: Sede;
 }
