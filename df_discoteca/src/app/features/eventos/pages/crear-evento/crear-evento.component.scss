@@ -135,14 +135,16 @@
 
 // ============================================================
 // FILA FECHA INICIO / FECHA FINAL
+// En el panel de programación van apiladas (los campos de fecha
+// y hora son anchos y lado a lado se encimaban).
 // ============================================================
 
 .crear-evento__fila {
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(18px, 2vw, 24px);
 }
 
 // ============================================================
@@ -307,7 +309,7 @@
   gap: 12px;
 }
 
-.fechas__add app-textfield {
+.fechas__add app-datefield {
   flex: 1 1 auto;
 
   min-width: 0;
@@ -316,7 +318,7 @@
 .fechas__boton {
   flex: 0 0 auto;
 
-  height: 58px;
+  height: 84px;
 
   padding: 0 22px;
 

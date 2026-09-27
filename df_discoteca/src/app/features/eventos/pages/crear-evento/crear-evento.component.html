@@ -82,18 +82,20 @@
 
             <div class="crear-evento__fila">
 
-              <app-textfield
+              <app-datefield
                 name="fechaInicio"
                 type="datetime-local"
                 label="Fecha inicio"
                 [(ngModel)]="fechaInicio"
+                [required]="true"
               />
 
-              <app-textfield
+              <app-datefield
                 name="fechaFin"
                 type="datetime-local"
                 label="Fecha final"
                 [(ngModel)]="fechaFin"
+                [required]="true"
               />
 
             </div>
@@ -104,7 +106,7 @@
               <h2 class="fechas__titulo">Fechas programadas</h2>
 
               <div class="fechas__add">
-                <app-textfield
+                <app-datefield
                   name="nuevaFecha"
                   type="datetime-local"
                   label="Agregar fecha"

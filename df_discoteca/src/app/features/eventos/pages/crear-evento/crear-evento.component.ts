@@ -10,11 +10,12 @@ import { CrearEventoDTO } from '../../../../core/dtos/eventos/crear-evento.dto';
 import { Sede } from '../../../../core/models/sede.model';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { TextfieldComponent } from '../../../../shared/components/textfield/textfield.component';
+import { DatefieldComponent } from '../../../../shared/components/datefield/datefield.component';
 
 @Component({
   selector: 'app-crear-evento',
   standalone: true,
-  imports: [FormsModule, ButtonComponent, TextfieldComponent],
+  imports: [FormsModule, ButtonComponent, TextfieldComponent, DatefieldComponent],
   templateUrl: './crear-evento.component.html',
   styleUrl: './crear-evento.component.scss'
 })

@@ -1,0 +1,169 @@
+@use '../../../../styles/variable' as *;
+
+// ============================================================
+// DATEFIELD (fecha / hora)
+// Mismo look & feel del textfield, usando los colores de _variable.scss
+// ============================================================
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.datefield {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  width: 100%;
+}
+
+// ============================================================
+// LABEL
+// ============================================================
+
+.datefield__label {
+  color: $color-white;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+// ============================================================
+// WRAP (control + ícono)
+// ============================================================
+
+.datefield__wrap {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+}
+
+// ============================================================
+// CONTROL
+// ============================================================
+
+.datefield__control {
+  width: 100%;
+  height: 84px;
+
+  box-sizing: border-box;
+
+  padding: 0 64px 0 24px;
+
+  background-color: $input-background;
+  color: $input-text;
+
+  border: $input-border-width solid $input-border;
+  border-radius: $input-border-radius;
+
+  font-family: inherit;
+  font-size: 18px;
+
+  // Pinta oscuro el calendario / reloj nativo.
+  color-scheme: dark;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: $color-primary-light;
+    box-shadow: $input-focus-shadow;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // --- Segmentos internos del input nativo (fecha + hora) ---
+  &::-webkit-datetime-edit {
+    color: $input-text;
+  }
+
+  &::-webkit-datetime-edit-fields-wrapper {
+    color: $input-text;
+  }
+
+  &::-webkit-datetime-edit-text {
+    color: $color-gray;
+
+    padding: 0 2px;
+  }
+
+  &::-webkit-datetime-edit-month-field,
+  &::-webkit-datetime-edit-day-field,
+  &::-webkit-datetime-edit-year-field,
+  &::-webkit-datetime-edit-hour-field,
+  &::-webkit-datetime-edit-minute-field,
+  &::-webkit-datetime-edit-ampm-field {
+    color: $input-text;
+
+    &:focus {
+      background-color: rgba($color-primary, 0.35);
+
+      border-radius: 4px;
+
+      outline: none;
+    }
+  }
+
+  // Ocultamos el ícono nativo (se desbordaba) y dejamos que
+  // toda el área abra el selector.
+  &::-webkit-calendar-picker-indicator {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    opacity: 0;
+
+    cursor: pointer;
+  }
+}
+
+// ============================================================
+// ÍCONO PROPIO (calendario / reloj)
+// ============================================================
+
+.datefield__icono {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+
+  padding: 0;
+
+  border: none;
+  background: none;
+
+  color: $color-primary;
+
+  pointer-events: none;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
