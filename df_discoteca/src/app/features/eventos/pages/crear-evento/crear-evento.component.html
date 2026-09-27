@@ -1,0 +1,175 @@
+<div class="crear-evento">
+
+  <section class="crear-evento__card">
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+    <header class="crear-evento__header">
+      <h1 class="crear-evento__titulo">Crear evento</h1>
+      <p class="crear-evento__subtitulo">Completa los datos de tu nuevo evento</p>
+    </header>
+
+    <!-- =====================================================
+         FORMULARIO
+         ===================================================== -->
+    <form class="crear-evento__form" (ngSubmit)="crearEvento()">
+
+      <div class="crear-evento__grid">
+
+        <!-- DATOS -->
+        <div class="crear-evento__campos">
+
+          <!-- SEDE -->
+          <label class="crear-evento__select">
+            <span class="crear-evento__select-label">Sede</span>
+
+            <select
+              name="idSede"
+              class="crear-evento__select-control"
+              [(ngModel)]="idSede"
+              [disabled]="cargandoSedes">
+
+              <option [ngValue]="null" disabled>
+                {{ cargandoSedes ? 'Cargando sedes…' : 'Selecciona una sede' }}
+              </option>
+
+              @for (sede of sedes; track sede.idSede) {
+                <option [ngValue]="sede.idSede">
+                  {{ sede.nombre }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+          <app-textfield
+            name="nombre"
+            label="Nombre"
+            placeholder="Ej. Noche de salsa"
+            autocomplete="off"
+            [(ngModel)]="nombre"
+            [required]="true"
+            [maxlength]="120"
+          />
+
+          <app-textfield
+            name="descripcion"
+            label="Descripción"
+            placeholder="Cuenta algo sobre el evento (opcional)"
+            autocomplete="off"
+            [(ngModel)]="descripcion"
+            [multiline]="true"
+            [maxlength]="500"
+          />
+
+          <div class="crear-evento__fila">
+
+            <app-textfield
+              name="direccion"
+              label="Dirección"
+              placeholder="Calle 123 #45-67"
+              autocomplete="street-address"
+              [(ngModel)]="direccion"
+              [maxlength]="180"
+            />
+
+            <app-textfield
+              name="ciudad"
+              label="Ciudad"
+              placeholder="Bogotá"
+              [(ngModel)]="ciudad"
+              [maxlength]="80"
+            />
+
+          </div>
+
+        </div>
+
+        <!-- PROGRAMACIÓN -->
+        <div class="crear-evento__programacion">
+
+          <label class="programar">
+            <input
+              type="checkbox"
+              class="programar__check"
+              name="programar"
+              [(ngModel)]="programar"
+            />
+            <span class="programar__texto">¿Quieres programarlo?</span>
+          </label>
+
+          @if (programar) {
+
+            <app-textfield
+              name="fechaInicio"
+              type="datetime-local"
+              label="Fecha inicio"
+              [(ngModel)]="fechaInicio"
+            />
+
+            <app-textfield
+              name="fechaFin"
+              type="datetime-local"
+              label="Fecha final"
+              [(ngModel)]="fechaFin"
+            />
+
+          }
+
+          <div class="fechas">
+
+            <h2 class="fechas__titulo">Fechas programadas</h2>
+
+            @if (tieneFechasProgramadas) {
+              <ul class="fechas__lista">
+                <li class="fechas__item">
+                  <span class="fechas__label">Inicio</span>
+                  <span class="fechas__valor">{{ fechaInicio }}</span>
+                </li>
+                <li class="fechas__item">
+                  <span class="fechas__label">Fin</span>
+                  <span class="fechas__valor">{{ fechaFin }}</span>
+                </li>
+              </ul>
+            } @else {
+              <p class="fechas__vacio">
+                Aún no has programado fechas para este evento.
+              </p>
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+      @if (error) {
+        <div class="crear-evento__error">{{ error }}</div>
+      }
+
+      <!-- ACCIONES -->
+      <footer class="crear-evento__acciones">
+
+        <button
+          type="button"
+          class="crear-evento__cancelar"
+          (click)="volver()">
+          Cancelar
+        </button>
+
+        <div class="crear-evento__submit">
+          <app-button
+            text="Crear evento"
+            type="submit"
+            [loading]="cargando"
+          />
+        </div>
+
+      </footer>
+
+    </form>
+
+  </section>
+
+</div>
