@@ -9,6 +9,12 @@ export interface CrearEventoDTO {
   idSede: number;
   /** URLs de las imágenes del evento. */
   urls: string[];
-  /** Fechas programadas (LocalDateTime ISO sin zona). */
-  eventoProgramado: string[];
+  programacionEvento: {
+    nombre: string;
+    descripcion: string;
+    fechaInicioProgramacion: string;
+    fechaFinProgramacion: string;
+    frecuencia: 'DIARIA' | 'SEMANAL' | 'QUINCENAL' | 'MENSUAL';
+    activa?: boolean | null;
+  } | null;
 }

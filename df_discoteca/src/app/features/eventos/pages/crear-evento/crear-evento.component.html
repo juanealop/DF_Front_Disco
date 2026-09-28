@@ -101,48 +101,27 @@
 
           @if (programar) {
 
-            <!-- FECHAS PROGRAMADAS -->
+            <!-- CONFIGURACIÓN DE REPETICIÓN -->
             <div class="fechas">
+              <h2 class="fechas__titulo">Repetir evento</h2>
 
-              <h2 class="fechas__titulo">Fechas programadas</h2>
+              <label class="frecuencia">
+                <span class="frecuencia__label">Frecuencia</span>
+                <select class="frecuencia__control" name="frecuencia" [(ngModel)]="frecuencia">
+                  <option value="DIARIA">Diaria</option>
+                  <option value="SEMANAL">Semanal</option>
+                  <option value="QUINCENAL">Quincenal</option>
+                  <option value="MENSUAL">Mensual</option>
+                </select>
+              </label>
 
-              <div class="fechas__add">
-                <app-datefield
-                  name="nuevaFecha"
-                  type="datetime-local"
-                  label="Agregar fecha"
-                  [(ngModel)]="nuevaFecha"
-                />
-
-                <button
-                  type="button"
-                  class="fechas__boton"
-                  (click)="agregarFechaProgramada()">
-                  Agregar
-                </button>
-              </div>
-
-              @if (eventoProgramado.length) {
-                <ul class="fechas__lista">
-                  @for (fecha of eventoProgramado; track fecha; let i = $index) {
-                    <li class="fechas__item">
-                      <span class="fechas__valor">{{ fecha }}</span>
-                      <button
-                        type="button"
-                        class="fechas__quitar"
-                        aria-label="Quitar fecha"
-                        (click)="quitarFechaProgramada(i)">
-                        Ã—
-                      </button>
-                    </li>
-                  }
-                </ul>
-              } @else {
-                <p class="fechas__vacio">
-                  AÃºn no has agregado fechas programadas.
-                </p>
-              }
-
+              <app-datefield
+                name="fechaFinProgramacion"
+                type="datetime-local"
+                label="Repetir hasta"
+                [(ngModel)]="fechaFinProgramacion"
+              />
+              <p class="fechas__vacio">El evento inicial y sus repeticiones conservarán la duración indicada.</p>
             </div>
 
           }

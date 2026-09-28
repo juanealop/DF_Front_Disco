@@ -299,6 +299,36 @@
   text-transform: uppercase;
 }
 
+.frecuencia {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.frecuencia__label {
+  color: $color-white;
+  font-size: clamp(14px, 1vw, 17px);
+  font-weight: 600;
+}
+
+.frecuencia__control {
+  width: 100%;
+  height: 54px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border: 1.5px solid $color-primary;
+  border-radius: 14px;
+  background-color: rgba($color-black, 0.55);
+  color: $color-white;
+  font: inherit;
+}
+
+.frecuencia__control option {
+  background-color: $color-black;
+  color: $color-white;
+}
+
 .fechas__add {
   display: flex;
 

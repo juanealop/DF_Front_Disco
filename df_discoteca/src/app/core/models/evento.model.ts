@@ -9,8 +9,14 @@ export interface Evento {
   /** LocalDateTime ISO sin zona, ej. "2026-09-27T22:38:00". */
   fechaInicio: string | null;
   fechaFin: string | null;
-  /** Fechas programadas (LocalDateTime ISO sin zona). */
-  eventoProgramado: string[];
+  programacionEvento: {
+    nombre: string;
+    descripcion: string;
+    fechaInicioProgramacion: string;
+    fechaFinProgramacion: string;
+    frecuencia: 'DIARIA' | 'SEMANAL' | 'QUINCENAL' | 'MENSUAL';
+    activa?: boolean | null;
+  } | null;
   /** La calcula el backend a partir de fechaInicio/fechaFin. */
   activa: boolean | null;
   sede: Sede;

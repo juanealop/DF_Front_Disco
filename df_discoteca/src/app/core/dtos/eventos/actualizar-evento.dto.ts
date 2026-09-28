@@ -7,5 +7,4 @@ export interface ActualizarEventoDTO {
   /** LocalDateTime ISO sin zona. */
   fechaFin: string | null;
   urls: string[];
-  eventoProgramado: string[];
 }

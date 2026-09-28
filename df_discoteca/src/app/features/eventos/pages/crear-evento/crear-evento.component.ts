@@ -46,10 +46,8 @@ export class CrearEventoComponent implements OnInit {
   fechaFin = '';
 
   /** Fecha que se está agregando a "Fechas programadas". */
-  nuevaFecha = '';
-
-  /** Fechas programadas (LocalDateTime ISO sin zona). */
-  eventoProgramado: string[] = [];
+  fechaFinProgramacion = '';
+  frecuencia: 'DIARIA' | 'SEMANAL' | 'QUINCENAL' | 'MENSUAL' = 'SEMANAL';
 
   // ============================================================
   // IMÁGENES (lógica de front)
@@ -112,25 +110,6 @@ export class CrearEventoComponent implements OnInit {
   // ============================================================
   // FECHAS PROGRAMADAS (lógica de front)
   // ============================================================
-
-  agregarFechaProgramada(): void {
-    const valor = this.aLocalDateTime(this.nuevaFecha);
-
-    if (!valor) {
-      return;
-    }
-
-    if (!this.eventoProgramado.includes(valor)) {
-      this.eventoProgramado.push(valor);
-      this.eventoProgramado.sort();
-    }
-
-    this.nuevaFecha = '';
-  }
-
-  quitarFechaProgramada(index: number): void {
-    this.eventoProgramado.splice(index, 1);
-  }
 
   /**
    * Convierte el valor de un input datetime-local (sin segundos) al
@@ -210,6 +189,16 @@ export class CrearEventoComponent implements OnInit {
       return;
     }
 
+    if (this.programar && !this.fechaFinProgramacion) {
+      this.error = 'Indica hasta cuándo se repetirá el evento.';
+      return;
+    }
+
+    if (this.programar && new Date(this.fechaFinProgramacion) < new Date(this.fechaInicio)) {
+      this.error = 'La fecha final de programación debe ser igual o posterior al inicio del evento.';
+      return;
+    }
+
     this.cargando = true;
 
     const dto: CrearEventoDTO = {
@@ -219,7 +208,13 @@ export class CrearEventoComponent implements OnInit {
       fechaFin: this.aLocalDateTime(this.fechaFin),
       idSede: this.idSede,
       urls: this.imagenes.map((imagen) => imagen.url),
-      eventoProgramado: this.programar ? [...this.eventoProgramado] : []
+      programacionEvento: this.programar ? {
+        nombre: this.nombre.trim(),
+        descripcion: this.descripcion.trim(),
+        fechaInicioProgramacion: this.aLocalDateTime(this.fechaInicio)!,
+        fechaFinProgramacion: this.aLocalDateTime(this.fechaFinProgramacion)!,
+        frecuencia: this.frecuencia
+      } : null
     };
 
     this.eventosService.crearEvento(dto).subscribe({

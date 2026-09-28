@@ -10,7 +10,14 @@ export interface ConsultarEventoDTO {
   Descripcion: string;
   fechaInicial: string | null;
   fehaFinal: string | null;
-  eventoProgramado: string[];
+  programacionEvento: {
+    nombre: string;
+    descripcion: string;
+    fechaInicioProgramacion: string;
+    fechaFinProgramacion: string;
+    frecuencia: 'DIARIA' | 'SEMANAL' | 'QUINCENAL' | 'MENSUAL';
+    activa: boolean | null;
+  } | null;
   activa: boolean | null;
   personas: ConsultarPersonaDTO[];
   urls: string[];

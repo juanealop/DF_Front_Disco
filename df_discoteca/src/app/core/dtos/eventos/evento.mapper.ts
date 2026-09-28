@@ -8,7 +8,7 @@ export class EventoMapper {
   /**
    * CrearEventoDTO -> Evento (modelo de front).
    * Espejo de MapperEvento.crearEventoDTOAEntidad del backend: solo se
-   * mapean nombre, descripcion, fechas, eventoProgramado, sede e imágenes.
+   * mapean nombre, descripcion, fechas, programacionEvento, sede e imágenes.
    */
   static toEntity(dto: CrearEventoDTO, sede: Sede): Evento {
     const imagenes: ImagenEvento[] = (dto.urls ?? []).map((url, index) => ({
@@ -22,7 +22,7 @@ export class EventoMapper {
       descripcion: dto.descripcion,
       fechaInicio: dto.fechaInicio,
       fechaFin: dto.fechaFin,
-      eventoProgramado: dto.eventoProgramado ?? [],
+      programacionEvento: dto.programacionEvento ?? null,
       activa: null,
       sede,
       imagenes
