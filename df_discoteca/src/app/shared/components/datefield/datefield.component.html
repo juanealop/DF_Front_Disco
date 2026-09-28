@@ -50,7 +50,11 @@
          ===================================================== -->
     @if (abierto) {
 
-      <div class="picker" role="dialog" aria-label="Selector de fecha y hora">
+      <div
+        class="picker"
+        [class.picker--solo-hora]="type === 'time'"
+        role="dialog"
+        aria-label="Selector de fecha y hora">
 
         <!-- CALENDARIO -->
         @if (type !== 'time') {
