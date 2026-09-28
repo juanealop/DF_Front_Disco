@@ -19,8 +19,8 @@ export class EventosService {
   constructor(private readonly http: HttpClient) {}
 
   // POST /api/evento
-  crearEvento(dto: CrearEventoDTO): Observable<Evento> {
-    return this.http.post<Evento>(this.eventosUrl, dto);
+  crearEvento(dto: CrearEventoDTO): Observable<ConsultarEventoDTO> {
+    return this.http.post<ConsultarEventoDTO>(this.eventosUrl, dto);
   }
 
   // GET /api/evento/{id}
