@@ -29,6 +29,14 @@ export class EventosService {
     return this.http.get<ConsultarEventoDTO>(`${this.eventosUrl}/${id}`);
   }
 
+  // GET /api/evento/sede/{idSede}
+  // Devuelve los eventos (ConsultarEventoDTO) de una sede.
+  obtenerEventosPorSede(idSede: number): Observable<ConsultarEventoDTO[]> {
+    return this.http.get<ConsultarEventoDTO[]>(
+      `${this.eventosUrl}/sede/${idSede}`
+    );
+  }
+
   // GET /api/evento/{id}/personas/count
   contarPersonasRegistradas(id: number): Observable<number> {
     return this.http.get<number>(`${this.eventosUrl}/${id}/personas/count`);

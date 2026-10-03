@@ -504,12 +504,20 @@
 // EVENTOS
 // ============================================================
 
+// Inactivo por defecto (rojo).
 .item--evento {
   border-left: 8px solid $color-error;
 }
 
+.item--evento.item--inactivo {
+  background-color: rgba($color-error, 0.07);
+}
+
+// Activo (verde).
 .item--evento.item--activo {
   border-left-color: $color-success;
+
+  background-color: rgba($color-success, 0.08);
 }
 
 .item--evento:hover {
@@ -522,6 +530,77 @@
 
 .item--evento.item--activo:hover {
   border-left-color: $color-success;
+
+  background-color: rgba($color-success, 0.14);
+}
+
+.item--evento.item--inactivo:hover {
+  background-color: rgba($color-error, 0.13);
+}
+
+// Fecha del evento (bajo la sede).
+.item__fecha {
+  color: rgba($color-white, 0.72);
+
+  font-size: clamp(12px, 0.95vw, 15px);
+
+  font-weight: 500;
+
+  letter-spacing: 0.4px;
+}
+
+// Píldora de estado Activo/Inactivo.
+.item__estado {
+  flex: 0 0 auto;
+
+  padding: 7px 16px;
+
+  border-radius: 999px;
+
+  font-size: clamp(12px, 0.95vw, 15px);
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  border: 1.5px solid transparent;
+}
+
+.item__estado--activo {
+  color: $color-success;
+
+  border-color: rgba($color-success, 0.55);
+
+  background: rgba($color-success, 0.14);
+}
+
+.item__estado--inactivo {
+  color: $color-error;
+
+  border-color: rgba($color-error, 0.55);
+
+  background: rgba($color-error, 0.14);
+}
+
+// Mensajes de lista vacía / cargando.
+.item-vacio {
+  padding: clamp(20px, 2vw, 30px);
+
+  border: 1px dashed rgba($color-white, 0.16);
+
+  border-radius: 16px;
+
+  color: $color-gray;
+
+  font-size: clamp(14px, 1.1vw, 17px);
+
+  font-weight: 600;
+
+  text-align: center;
 }
 
 // ============================================================

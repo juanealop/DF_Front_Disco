@@ -191,42 +191,70 @@
 
       <ul class="panel__items">
 
-        @for (evento of eventos; track evento.idEvento) {
+        @if (cargandoEventos) {
 
-          <li
-            class="item item--evento">
+          <li class="item-vacio">Cargando eventos…</li>
 
-            <span class="item__info">
+        } @else if (!eventos.length) {
 
-              <span class="item__titulo">
-                {{ evento.descripcion }}
-              </span>
-
-              <span class="item__sub">
-                {{ evento.sede.nombre }}
-              </span>
-
-            </span>
-
-
-            <span class="item__chevron">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true">
-
-                <path d="M9 5l7 7-7 7" />
-
-              </svg>
-
-            </span>
-
+          <li class="item-vacio">
+            Aún no hay eventos. Agrega uno con el botón +.
           </li>
+
+        } @else {
+
+          @for (evento of eventos; track evento.key) {
+
+            <li
+              class="item item--evento"
+              [class.item--activo]="evento.activa"
+              [class.item--inactivo]="!evento.activa">
+
+              <span class="item__info">
+
+                <span class="item__titulo">
+                  {{ evento.descripcion }}
+                </span>
+
+                <span class="item__sub">
+                  {{ evento.nombreSede }}
+                </span>
+
+                <span class="item__fecha">
+                  {{ fechaTexto(evento.fechaInicial) }}
+                </span>
+
+              </span>
+
+              <span
+                class="item__estado"
+                [class.item__estado--activo]="evento.activa"
+                [class.item__estado--inactivo]="!evento.activa">
+
+                {{ evento.activa ? 'Activo' : 'Inactivo' }}
+
+              </span>
+
+              <span class="item__chevron">
+
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+
+                  <path d="M9 5l7 7-7 7" />
+
+                </svg>
+
+              </span>
+
+            </li>
+
+          }
 
         }
 
