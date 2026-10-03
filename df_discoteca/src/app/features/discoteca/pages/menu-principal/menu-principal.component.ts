@@ -23,7 +23,7 @@ export interface OpcionMenu {
  */
 export interface EventoVista {
   key: string;
-  idEvento: number | null;
+  idEvento: number;
   idSede: number;
   nombreSede: string;
   descripcion: string;
@@ -160,7 +160,7 @@ export class MenuPrincipalComponent implements OnInit {
     ).subscribe({
       next: (listas) => {
         this.eventos = listas.flatMap((lista, i) =>
-          lista.map((dto, j) => this.aVista(dto, sedes[i], j))
+          lista.map((dto) => this.aVista(dto, sedes[i]))
         );
 
         // Activos primero.
@@ -177,12 +177,11 @@ export class MenuPrincipalComponent implements OnInit {
   /** Adapta el ConsultarEventoDTO del backend a la vista del panel. */
   private aVista(
     dto: ConsultarEventoDTO,
-    sede: Sede,
-    indice: number
+    sede: Sede
   ): EventoVista {
     return {
-      key: `${dto.idSede}-${indice}-${dto.fechaInicial ?? ''}`,
-      idEvento: dto.idEvento ?? null,
+      key: String(dto.idEvento),
+      idEvento: dto.idEvento,
       idSede: dto.idSede,
       nombreSede: sede.nombre,
       // OJO: el backend expone "Descripcion" con mayúscula.
@@ -252,15 +251,8 @@ export class MenuPrincipalComponent implements OnInit {
     void this.router.navigate(['/eventos/crear']);
   }
 
-  /** Abre la pantalla de edición del evento (requiere el idEvento). */
+  /** Abre la pantalla de edición del evento. */
   verEvento(evento: EventoVista): void {
-    if (evento.idEvento === null) {
-      console.warn(
-        'El evento no trae idEvento; el backend debe incluirlo en ConsultarEventoDTO para poder editarlo.'
-      );
-      return;
-    }
-
     void this.router.navigate(['/eventos', evento.idEvento]);
   }
 

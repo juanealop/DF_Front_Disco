@@ -5,9 +5,8 @@ import { ConsultarPersonaDTO } from '../personas/consultar-persona.dto';
 // OJO: se respetan los nombres EXACTOS que expone el record del backend,
 // incluidos "Descripcion" (con mayúscula) y "fechaInicial"/"fehaFinal".
 export interface ConsultarEventoDTO {
-  /** El backend puede incluir el id del evento (necesario para editarlo). */
-  idEvento?: number | null;
   idSede: number;
+  idEvento: number;
   nombre: string;
   Descripcion: string;
   fechaInicial: string | null;
