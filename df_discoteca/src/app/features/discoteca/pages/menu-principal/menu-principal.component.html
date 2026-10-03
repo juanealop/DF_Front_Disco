@@ -208,7 +208,11 @@
             <li
               class="item item--evento"
               [class.item--activo]="evento.activa"
-              [class.item--inactivo]="!evento.activa">
+              [class.item--inactivo]="!evento.activa"
+              (click)="verEvento(evento)"
+              (keydown.enter)="verEvento(evento)"
+              tabindex="0"
+              role="button">
 
               <span class="item__info">
 

@@ -7,6 +7,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    // Ruta dinámica (requiere autenticación); se renderiza en el cliente.
+    path: 'eventos/:id',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

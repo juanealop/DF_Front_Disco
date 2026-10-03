@@ -23,6 +23,7 @@ export interface OpcionMenu {
  */
 export interface EventoVista {
   key: string;
+  idEvento: number | null;
   idSede: number;
   nombreSede: string;
   descripcion: string;
@@ -181,6 +182,7 @@ export class MenuPrincipalComponent implements OnInit {
   ): EventoVista {
     return {
       key: `${dto.idSede}-${indice}-${dto.fechaInicial ?? ''}`,
+      idEvento: dto.idEvento ?? null,
       idSede: dto.idSede,
       nombreSede: sede.nombre,
       // OJO: el backend expone "Descripcion" con mayúscula.
@@ -248,6 +250,18 @@ export class MenuPrincipalComponent implements OnInit {
 
   agregarEvento(): void {
     void this.router.navigate(['/eventos/crear']);
+  }
+
+  /** Abre la pantalla de edición del evento (requiere el idEvento). */
+  verEvento(evento: EventoVista): void {
+    if (evento.idEvento === null) {
+      console.warn(
+        'El evento no trae idEvento; el backend debe incluirlo en ConsultarEventoDTO para poder editarlo.'
+      );
+      return;
+    }
+
+    void this.router.navigate(['/eventos', evento.idEvento]);
   }
 
   // ============================================================

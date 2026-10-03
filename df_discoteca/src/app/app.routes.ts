@@ -6,6 +6,7 @@ import { MenuPrincipalComponent } from './features/discoteca/pages/menu-principa
 import { CrearSedeComponent } from './features/sedes/pages/crear-sede/crear-sede.component';
 import { VerSedeComponent } from './features/sedes/pages/ver-sede/ver-sede.component';
 import { CrearEventoComponent } from './features/eventos/pages/crear-evento/crear-evento.component';
+import { VerEventoComponent } from './features/eventos/pages/ver-evento/ver-evento.component';
 import { authGuard, loginRedirectGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -50,6 +51,11 @@ export const routes: Routes = [
   {
     path: 'eventos/crear',
     component: CrearEventoComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'eventos/:id',
+    component: VerEventoComponent,
     canActivate: [authGuard]
   },
   {
