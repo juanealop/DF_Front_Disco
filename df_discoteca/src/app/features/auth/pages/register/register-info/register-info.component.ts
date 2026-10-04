@@ -32,9 +32,17 @@ export class RegisterInfoComponent {
 
   contrasena: string = '';
 
-  pais: string = '';
+  pais: string = 'Colombia';
 
-  ciudad: string = '';
+  ciudad: string = 'Bogotá';
+
+  /**
+   * Opciones quemadas (por ahora solo Colombia / Bogotá).
+   * Al ser combobox, se dejan como listas para poder agregar más luego.
+   */
+  readonly paises: string[] = ['Colombia'];
+
+  readonly ciudades: string[] = ['Bogotá'];
 
   constructor(
     private readonly router: Router,

@@ -111,28 +111,42 @@
           />
 
           <!-- PAÍS -->
-          <app-textfield
-            class="register-field"
-            name="pais"
-            label="País"
-            placeholder="Ej. Colombia"
-            autocomplete="country-name"
-            [(ngModel)]="pais"
-            [required]="true"
-            [maxlength]="80"
-          />
+          <label class="register-field register-select">
+
+            <span class="register-select__label">País</span>
+
+            <select
+              name="pais"
+              class="register-select__control"
+              [(ngModel)]="pais"
+              [required]="true">
+
+              @for (opcion of paises; track opcion) {
+                <option [value]="opcion">{{ opcion }}</option>
+              }
+
+            </select>
+
+          </label>
 
           <!-- CIUDAD -->
-          <app-textfield
-            class="register-field"
-            name="ciudad"
-            label="Ciudad"
-            placeholder="Ej. Medellín"
-            autocomplete="address-level2"
-            [(ngModel)]="ciudad"
-            [required]="true"
-            [maxlength]="80"
-          />
+          <label class="register-field register-select">
+
+            <span class="register-select__label">Ciudad</span>
+
+            <select
+              name="ciudad"
+              class="register-select__control"
+              [(ngModel)]="ciudad"
+              [required]="true">
+
+              @for (opcion of ciudades; track opcion) {
+                <option [value]="opcion">{{ opcion }}</option>
+              }
+
+            </select>
+
+          </label>
 
         </div>
 
