@@ -17,15 +17,19 @@ export interface OpcionMenu {
 /**
  * Evento ya listo para pintar en el panel de Eventos.
  *
- * El ConsultarEventoDTO del backend NO trae idEvento ni el objeto sede
- * (solo idSede), así que aquí se agrega el nombre de la sede y una clave
- * estable para el @for.
+ * El ConsultarEventoDTO del backend solo trae idSede (no el objeto sede),
+ * así que aquí se agrega el nombre de la sede y una clave estable para
+ * el @for.
  */
 export interface EventoVista {
   key: string;
   idEvento: number;
   idSede: number;
+  /** Nombre del evento (título de la tarjeta). */
+  nombre: string;
+  /** Nombre de la sede a la que pertenece el evento. */
   nombreSede: string;
+  /** Descripción del evento (texto secundario). */
   descripcion: string;
   fechaInicial: string | null;
   activa: boolean;
@@ -183,9 +187,10 @@ export class MenuPrincipalComponent implements OnInit {
       key: String(dto.idEvento),
       idEvento: dto.idEvento,
       idSede: dto.idSede,
+      nombre: dto.nombre,
       nombreSede: sede.nombre,
       // OJO: el backend expone "Descripcion" con mayúscula.
-      descripcion: dto.Descripcion || dto.nombre,
+      descripcion: dto.Descripcion ?? '',
       fechaInicial: dto.fechaInicial,
       activa: dto.activa === true
     };

@@ -217,8 +217,14 @@
               <span class="item__info">
 
                 <span class="item__titulo">
-                  {{ evento.descripcion }}
+                  {{ evento.nombre }}
                 </span>
+
+                @if (evento.descripcion) {
+                  <span class="item__desc">
+                    {{ evento.descripcion }}
+                  </span>
+                }
 
                 <span class="item__sub">
                   {{ evento.nombreSede }}

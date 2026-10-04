@@ -538,6 +538,23 @@
   background-color: rgba($color-error, 0.13);
 }
 
+// Descripción del evento (bajo el título).
+.item__desc {
+  color: rgba($color-white, 0.78);
+
+  font-size: clamp(13px, 1vw, 16px);
+
+  font-weight: 500;
+
+  line-height: 1.35;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
 // Fecha del evento (bajo la sede).
 .item__fecha {
   color: rgba($color-white, 0.72);
