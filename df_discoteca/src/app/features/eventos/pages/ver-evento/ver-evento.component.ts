@@ -10,11 +10,12 @@ import { ConsultarEventoDTO } from '../../../../core/dtos/eventos/consultar-even
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { TextfieldComponent } from '../../../../shared/components/textfield/textfield.component';
 import { DatefieldComponent } from '../../../../shared/components/datefield/datefield.component';
+import { AdvisorComponent } from '../../../../shared/components/advisor/advisor.component';
 
 @Component({
   selector: 'app-ver-evento',
   standalone: true,
-  imports: [FormsModule, ButtonComponent, TextfieldComponent, DatefieldComponent],
+  imports: [FormsModule, ButtonComponent, TextfieldComponent, DatefieldComponent, AdvisorComponent],
   templateUrl: './ver-evento.component.html',
   styleUrl: './ver-evento.component.scss'
 })
@@ -61,6 +62,12 @@ export class VerEventoComponent implements OnInit {
   cargando = false;
   error = '';
   imagenSeleccionada: string | null = null;
+
+  /** Muestra el advisor de confirmación de eliminación. */
+  confirmandoEliminar = false;
+
+  /** True mientras se está eliminando el evento. */
+  eliminando = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -250,5 +257,57 @@ export class VerEventoComponent implements OnInit {
 
   volverAtras(): void {
     void this.router.navigate(['/menu-principal']);
+  }
+
+  // ============================================================
+  // ELIMINAR EVENTO
+  // ============================================================
+
+  /** Mensaje del advisor de confirmación. */
+  get mensajeEliminar(): string {
+    const nombre = this.nombre.trim();
+
+    return nombre
+      ? `¿Seguro que quieres eliminar "${nombre}"? Esta acción no se puede deshacer.`
+      : '¿Seguro que quieres eliminar este evento? Esta acción no se puede deshacer.';
+  }
+
+  abrirConfirmacionEliminar(): void {
+    this.error = '';
+    this.confirmandoEliminar = true;
+  }
+
+  cancelarEliminar(): void {
+    if (this.eliminando) {
+      return;
+    }
+
+    this.confirmandoEliminar = false;
+  }
+
+  eliminarEvento(): void {
+
+    if (this.eliminando || this.idEvento === null) {
+      return;
+    }
+
+    this.eliminando = true;
+
+    // DELETE /api/evento/{id}
+    this.eventosService.eliminarEvento(this.idEvento).subscribe({
+      next: () => {
+        this.eliminando = false;
+        this.confirmandoEliminar = false;
+        void this.router.navigate(['/menu-principal']);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.eliminando = false;
+        this.confirmandoEliminar = false;
+        this.error = err.status === 401
+          ? 'Tu sesión expiró. Inicia sesión nuevamente para eliminar el evento.'
+          : err.error?.message ?? 'No se pudo eliminar el evento. Intenta de nuevo.';
+      }
+    });
   }
 }

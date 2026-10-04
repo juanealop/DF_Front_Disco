@@ -411,6 +411,39 @@
   gap: 18px;
 }
 
+.ver-evento__eliminar {
+  height: 58px;
+
+  padding: 0 32px;
+
+  border: 2px solid rgba($color-error, 0.6);
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: $color-error;
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ver-evento__eliminar:hover {
+  border-color: $color-error;
+
+  background-color: rgba($color-error, 0.12);
+}
+
 .ver-evento__cancelar {
   height: 58px;
 
@@ -449,6 +482,27 @@
 .ver-evento__submit {
   width: 280px;
   min-height: 58px;
+}
+
+// ============================================================
+// OVERLAY DE CONFIRMACIÓN (advisor)
+// ============================================================
+
+.ver-evento__overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9998;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(20px, 4vw, 48px);
+
+  background: rgba($color-black, 0.78);
+
+  backdrop-filter: blur(2px);
 }
 
 // ============================================================

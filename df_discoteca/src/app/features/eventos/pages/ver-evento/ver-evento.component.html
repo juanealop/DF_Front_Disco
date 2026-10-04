@@ -175,6 +175,13 @@
 
           <button
             type="button"
+            class="ver-evento__eliminar"
+            (click)="abrirConfirmacionEliminar()">
+            Eliminar evento
+          </button>
+
+          <button
+            type="button"
             class="ver-evento__cancelar"
             (click)="volverAtras()">
             Volver atrás
@@ -195,5 +202,26 @@
     }
 
   </section>
+
+  <!-- =====================================================
+       CONFIRMACIÓN DE ELIMINACIÓN (advisor)
+       ===================================================== -->
+  @if (confirmandoEliminar) {
+
+    <div class="ver-evento__overlay">
+
+      <app-advisor
+        titulo="Eliminar evento"
+        [mensaje]="mensajeEliminar"
+        textoPrimario="Eliminar"
+        textoSecundario="Cancelar"
+        [cargando]="eliminando"
+        (primario)="eliminarEvento()"
+        (secundario)="cancelarEliminar()"
+      />
+
+    </div>
+
+  }
 
 </div>
