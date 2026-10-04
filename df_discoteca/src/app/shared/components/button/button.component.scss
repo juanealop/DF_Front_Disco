@@ -48,6 +48,29 @@
   cursor: not-allowed;
 }
 
+// ---------------------------------------------------------
+// VARIANTE SECUNDARIA (contorno, sin relleno)
+// ---------------------------------------------------------
+.app-button--secondary {
+  background: transparent;
+
+  border: 2px solid $color-primary;
+
+  color: $color-white;
+
+  box-shadow: none;
+}
+
+.app-button--secondary:hover:not(:disabled) {
+  background: rgba($color-primary, 0.12);
+
+  box-shadow: none;
+}
+
+.app-button--secondary:active:not(:disabled) {
+  background: rgba($color-primary, 0.2);
+}
+
 .spinner {
   width: 22px;
   height: 22px;

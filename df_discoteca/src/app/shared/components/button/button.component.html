@@ -1,5 +1,6 @@
 <button
   class="app-button"
+  [class.app-button--secondary]="variant === 'secondary'"
   [type]="type"
   [disabled]="disabled || loading"
   (click)="onClick()">

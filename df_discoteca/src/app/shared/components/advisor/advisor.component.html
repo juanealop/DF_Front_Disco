@@ -1,0 +1,28 @@
+<section class="advisor" role="alertdialog" aria-modal="true">
+
+  <!-- TÍTULO -->
+  <h2 class="advisor__titulo">{{ titulo }}</h2>
+
+  <!-- MENSAJE -->
+  @if (mensaje) {
+    <p class="advisor__mensaje">{{ mensaje }}</p>
+  }
+
+  <!-- ACCIONES -->
+  <div class="advisor__acciones">
+
+    <app-button
+      [text]="textoSecundario"
+      variant="secondary"
+      (clicked)="secundario.emit()"
+    />
+
+    <app-button
+      [text]="textoPrimario"
+      [loading]="cargando"
+      (clicked)="primario.emit()"
+    />
+
+  </div>
+
+</section>

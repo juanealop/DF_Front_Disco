@@ -1,0 +1,125 @@
+@use '../../../../styles/variable' as *;
+
+// ============================================================
+// ADVISOR
+// Tarjeta de aviso/confirmación: título + mensaje + 2 botones.
+// ============================================================
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.advisor {
+  width: 100%;
+  max-width: 780px;
+
+  box-sizing: border-box;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: clamp(18px, 2vw, 26px);
+
+  padding:
+    clamp(30px, 3.4vw, 54px)
+    clamp(26px, 3vw, 56px);
+
+  border: 2px solid rgba($color-primary, 0.6);
+
+  border-radius: 18px;
+
+  background-color: rgba($color-white, 0.015);
+
+  box-shadow:
+    0 24px 60px rgba($color-black, 0.55);
+
+  text-align: center;
+}
+
+// ============================================================
+// TÍTULO
+// ============================================================
+
+.advisor__titulo {
+  margin: 0;
+
+  color: $color-white;
+
+  font-size: clamp(24px, 2.4vw, 38px);
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  line-height: 1.15;
+
+  text-transform: uppercase;
+}
+
+// ============================================================
+// MENSAJE
+// ============================================================
+
+.advisor__mensaje {
+  margin: 0;
+
+  max-width: 60ch;
+
+  color: $color-gray;
+
+  font-size: clamp(15px, 1.15vw, 19px);
+
+  font-weight: 500;
+
+  line-height: 1.5;
+
+  white-space: pre-line;
+}
+
+// ============================================================
+// ACCIONES
+// ============================================================
+
+.advisor__acciones {
+  width: 100%;
+  max-width: 680px;
+
+  margin-top: clamp(6px, 1vw, 14px);
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: clamp(16px, 2vw, 26px);
+}
+
+// ============================================================
+// MÓVIL
+// ============================================================
+
+@media (max-width: 560px) {
+
+  .advisor {
+    padding:
+      26px
+      20px;
+
+    border-radius: 16px;
+  }
+
+  .advisor__titulo {
+    font-size: 22px;
+  }
+
+  .advisor__mensaje {
+    font-size: 15px;
+  }
+
+  .advisor__acciones {
+    grid-template-columns: 1fr;
+  }
+}

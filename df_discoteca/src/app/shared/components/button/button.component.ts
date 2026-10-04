@@ -12,6 +12,9 @@ export class ButtonComponent {
 
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
+  /** primary (relleno) | secondary (contorno). */
+  @Input() variant: 'primary' | 'secondary' = 'primary';
+
   @Input() disabled = false;
 
   @Input() loading = false;
