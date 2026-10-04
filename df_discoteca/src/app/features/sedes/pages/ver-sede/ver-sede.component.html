@@ -176,6 +176,13 @@
 
           <button
             type="button"
+            class="ver-sede__eliminar"
+            (click)="abrirConfirmacionEliminar()">
+            Eliminar sede
+          </button>
+
+          <button
+            type="button"
             class="ver-sede__cancelar"
             (click)="volverAtras()">
             Volver atrás
@@ -195,5 +202,26 @@
     }
 
   </section>
+
+  <!-- =====================================================
+       CONFIRMACIÓN DE ELIMINACIÓN (advisor)
+       ===================================================== -->
+  @if (confirmandoEliminar) {
+
+    <div class="ver-sede__overlay">
+
+      <app-advisor
+        titulo="Eliminar sede"
+        [mensaje]="mensajeEliminar"
+        textoPrimario="Eliminar"
+        textoSecundario="Cancelar"
+        [cargando]="eliminando"
+        (primario)="eliminarSede()"
+        (secundario)="cancelarEliminar()"
+      />
+
+    </div>
+
+  }
 
 </div>

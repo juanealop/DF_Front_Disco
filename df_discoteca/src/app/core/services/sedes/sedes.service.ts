@@ -46,4 +46,9 @@ export class SedesService {
   actualizarSede(id: number, dto: ActualizarSedeDTO): Observable<Sede> {
     return this.http.put<Sede>(`${this.sedesUrl}/${id}`, dto);
   }
+
+  // DELETE /api/sedes/{id}
+  eliminarSede(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.sedesUrl}/${id}`);
+  }
 }

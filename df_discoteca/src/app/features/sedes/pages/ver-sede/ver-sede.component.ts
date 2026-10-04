@@ -9,11 +9,12 @@ import { Sede } from '../../../../core/models/sede.model';
 import { ActualizarSedeDTO } from '../../../../core/dtos/sedes/actualizar-sede.dto';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { TextfieldComponent } from '../../../../shared/components/textfield/textfield.component';
+import { AdvisorComponent } from '../../../../shared/components/advisor/advisor.component';
 
 @Component({
   selector: 'app-ver-sede',
   standalone: true,
-  imports: [FormsModule, ButtonComponent, TextfieldComponent],
+  imports: [FormsModule, ButtonComponent, TextfieldComponent, AdvisorComponent],
   templateUrl: './ver-sede.component.html',
   styleUrl: './ver-sede.component.scss'
 })
@@ -52,6 +53,12 @@ export class VerSedeComponent implements OnInit {
   cargando = false;
   error = ''; 
   imagenSeleccionada: string | null = null;
+
+  /** Muestra el advisor de confirmación de eliminación. */
+  confirmandoEliminar = false;
+
+  /** True mientras se está eliminando la sede. */
+  eliminando = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -214,6 +221,58 @@ cerrarImagen(): void {
     }
   });
 }
+
+  // ============================================================
+  // ELIMINAR SEDE
+  // ============================================================
+
+  /** Mensaje del advisor de confirmación. */
+  get mensajeEliminar(): string {
+    const nombre = this.nombre.trim();
+
+    return nombre
+      ? `¿Seguro que quieres eliminar "${nombre}"? Esta acción no se puede deshacer.`
+      : '¿Seguro que quieres eliminar esta sede? Esta acción no se puede deshacer.';
+  }
+
+  abrirConfirmacionEliminar(): void {
+    this.error = '';
+    this.confirmandoEliminar = true;
+  }
+
+  cancelarEliminar(): void {
+    if (this.eliminando) {
+      return;
+    }
+
+    this.confirmandoEliminar = false;
+  }
+
+  eliminarSede(): void {
+
+    if (this.eliminando || this.idSede === null) {
+      return;
+    }
+
+    this.eliminando = true;
+
+    // DELETE /api/sedes/{id}
+    this.sedesService.eliminarSede(this.idSede).subscribe({
+      next: () => {
+        this.eliminando = false;
+        this.confirmandoEliminar = false;
+        void this.router.navigate(['/menu-principal']);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.eliminando = false;
+        this.confirmandoEliminar = false;
+        this.error = err.status === 401
+          ? 'Tu sesión expiró. Inicia sesión nuevamente para eliminar la sede.'
+          : err.error?.message ?? 'No se pudo eliminar la sede. Intenta de nuevo.';
+      }
+    });
+  }
 
   // ============================================================
   // VOLVER ATRÁS
