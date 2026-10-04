@@ -2,7 +2,7 @@ import { ImagenSede } from './imagen-sede.model';
 
 // Espejo de Sedes del backend (com.DF.back.sedes.entidades.Sedes).
 export interface Sede {
-  idSede: number;
+  idSede: string;
   nombre: string;
   descripcion: string;
   direccion: string;

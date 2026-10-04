@@ -1,5 +1,5 @@
 export interface Discoteca {
-  idDiscoteca: number;
+  idDiscoteca: string;
   nombre: string;
   descripcion: string;
   direccion: string;

@@ -6,7 +6,7 @@ export class DiscotecaMapper {
 
   static toEntity(dto: CrearDiscotecaDTO): Discoteca {
     return {
-      idDiscoteca: 0,
+      idDiscoteca: "",
       nombre: dto.nombre,
       descripcion: dto.descripcion,
       direccion: dto.direccion,

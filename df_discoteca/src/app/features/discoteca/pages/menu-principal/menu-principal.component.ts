@@ -23,8 +23,8 @@ export interface OpcionMenu {
  */
 export interface EventoVista {
   key: string;
-  idEvento: number;
-  idSede: number;
+  idEvento: string;
+  idSede: string;
   /** Nombre del evento (título de la tarjeta). */
   nombre: string;
   /** Nombre de la sede a la que pertenece el evento. */

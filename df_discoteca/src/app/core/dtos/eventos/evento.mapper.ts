@@ -11,13 +11,13 @@ export class EventoMapper {
    * mapean nombre, descripcion, fechas, programacionEvento, sede e imágenes.
    */
   static toEntity(dto: CrearEventoDTO, sede: Sede): Evento {
-    const imagenes: ImagenEvento[] = (dto.urls ?? []).map((url, index) => ({
-      idImagen: index,
+    const imagenes: ImagenEvento[] = (dto.urls ?? []).map((url) => ({
+      idImagen: '',
       url
     }));
 
     return {
-      idEvento: 0,
+      idEvento: "",
       nombre: dto.nombre,
       descripcion: dto.descripcion,
       fechaInicio: dto.fechaInicio,

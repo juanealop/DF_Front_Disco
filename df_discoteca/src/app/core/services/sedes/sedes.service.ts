@@ -24,31 +24,31 @@ export class SedesService {
     return this.http.post<Sede>(this.sedesUrl, dto);
   }
 
-  obtenerPorDiscoteca(idDiscoteca: number): Observable<Sede[]> {
+  obtenerPorDiscoteca(idDiscoteca: string): Observable<Sede[]> {
     return this.http.get<Sede[]>(`${this.sedesUrl}/discoteca/${idDiscoteca}`);
   }
 
-  agregarImagenes(idSede: number, urls: string[]): Observable<ImagenSede[]> {
+  agregarImagenes(idSede: string, urls: string[]): Observable<ImagenSede[]> {
     return this.http.post<ImagenSede[]>(`${this.sedesUrl}/${idSede}/imagenes`, { urls });
   }
 
-  eliminarImagen(idSede: number, idImagen: number): Observable<void> {
+  eliminarImagen(idSede: string, idImagen: string): Observable<void> {
     return this.http.delete<void>(`${this.sedesUrl}/${idSede}/imagenes/${idImagen}`);
   }
 
   // GET /api/sedes/{id}
   // Devuelve el ConsultarSedeDTO del backend (misma forma que Sede).
-  obtenerSede(id: number): Observable<Sede> {
+  obtenerSede(id: string): Observable<Sede> {
     return this.http.get<Sede>(`${this.sedesUrl}/${id}`);
   }
 
   // PUT /api/sedes/{id}
-  actualizarSede(id: number, dto: ActualizarSedeDTO): Observable<Sede> {
+  actualizarSede(id: string, dto: ActualizarSedeDTO): Observable<Sede> {
     return this.http.put<Sede>(`${this.sedesUrl}/${id}`, dto);
   }
 
   // DELETE /api/sedes/{id}
-  eliminarSede(id: number): Observable<void> {
+  eliminarSede(id: string): Observable<void> {
     return this.http.delete<void>(`${this.sedesUrl}/${id}`);
   }
 }

@@ -25,30 +25,30 @@ export class EventosService {
 
   // GET /api/evento/{id}
   // Devuelve el ConsultarEventoDTO del backend.
-  obtenerEvento(id: number): Observable<ConsultarEventoDTO> {
+  obtenerEvento(id: string): Observable<ConsultarEventoDTO> {
     return this.http.get<ConsultarEventoDTO>(`${this.eventosUrl}/${id}`);
   }
 
   // GET /api/evento/sede/{idSede}
   // Devuelve los eventos (ConsultarEventoDTO) de una sede.
-  obtenerEventosPorSede(idSede: number): Observable<ConsultarEventoDTO[]> {
+  obtenerEventosPorSede(idSede: string): Observable<ConsultarEventoDTO[]> {
     return this.http.get<ConsultarEventoDTO[]>(
       `${this.eventosUrl}/sede/${idSede}`
     );
   }
 
   // GET /api/evento/{id}/personas/count
-  contarPersonasRegistradas(id: number): Observable<number> {
+  contarPersonasRegistradas(id: string): Observable<number> {
     return this.http.get<number>(`${this.eventosUrl}/${id}/personas/count`);
   }
 
   // PUT /api/evento/{id}
-  actualizarEvento(id: number, dto: ActualizarEventoDTO): Observable<Evento> {
+  actualizarEvento(id: string, dto: ActualizarEventoDTO): Observable<Evento> {
     return this.http.put<Evento>(`${this.eventosUrl}/${id}`, dto);
   }
 
   // DELETE /api/evento/{id}
-  eliminarEvento(id: number): Observable<void> {
+  eliminarEvento(id: string): Observable<void> {
     return this.http.delete<void>(`${this.eventosUrl}/${id}`);
   }
 }
