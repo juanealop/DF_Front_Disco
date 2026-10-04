@@ -29,7 +29,7 @@ export class VerEventoComponent implements OnInit {
   // ============================================================
 
   /** id del evento que se está editando (viene por la URL). */
-  idEvento: number | null = null;
+  idEvento: string | null = null;
 
   /** Nombre de la sede del evento (solo lectura, para el subtítulo). */
   nombreSede = '';
@@ -82,9 +82,9 @@ export class VerEventoComponent implements OnInit {
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
-    this.idEvento = idParam !== null && idParam !== '' ? Number(idParam) : null;
+    this.idEvento = idParam !== null && idParam !== '' ? idParam : null;
 
-    if (this.idEvento === null || Number.isNaN(this.idEvento)) {
+    if (this.idEvento === null) {
       this.error = 'No se encontró el evento.';
       return;
     }

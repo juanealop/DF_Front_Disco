@@ -32,7 +32,7 @@ export class CrearEventoComponent implements OnInit {
   descripcion = '';
 
   /** Sede a la que pertenece el evento (relación obligatoria). */
-  idSede: number | null = null;
+  idSede: string | null = null;
 
   // ============================================================
   // PROGRAMACIÓN

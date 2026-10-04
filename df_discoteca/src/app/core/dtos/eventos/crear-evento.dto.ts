@@ -6,7 +6,7 @@ export interface CrearEventoDTO {
   fechaInicio: string | null;
   /** LocalDateTime ISO sin zona, ej. "2026-09-28T03:00:00". */
   fechaFin: string | null;
-  idSede: number;
+  idSede: string;
   /** URLs de las imágenes del evento. */
   urls: string[];
   programacionEvento: {

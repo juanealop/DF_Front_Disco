@@ -8,6 +8,6 @@ export interface Sede {
   direccion: string;
   ciudad: string;
   pais: string;
-  idDiscoteca: number;
+  idDiscoteca: string;
   imagenes: ImagenSede[];
 }

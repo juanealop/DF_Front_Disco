@@ -103,7 +103,7 @@ export class CrearSedeComponent {
       direccion: this.direccion.trim(),
       ciudad: this.ciudad.trim(),
       pais: this.pais.trim(),
-      idDiscoteca: this.authService.getUsuarioId() ?? 0
+      idDiscoteca: this.authService.getUsuarioId() ?? ''
     };
 
     from(this.convertirImagenesADataUrl()).pipe(

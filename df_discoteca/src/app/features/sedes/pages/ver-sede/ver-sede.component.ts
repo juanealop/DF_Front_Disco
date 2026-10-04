@@ -29,7 +29,7 @@ export class VerSedeComponent implements OnInit {
 
   sede: Sede | null = null;
 
-  private idSede: number | null = null;
+  private idSede: string | null = null;
 
   // ============================================================
   // DATOS DEL FORMULARIO
@@ -42,8 +42,8 @@ export class VerSedeComponent implements OnInit {
   direccion = '';
 
   /** Imágenes de la sede (+ las que se agreguen en el front). */
-  imagenes: { idImagen?: number; nombre: string; url: string; archivo?: File }[] = [];
-  private readonly imagenesEliminadas = new Set<number>();
+  imagenes: { idImagen?: string; nombre: string; url: string; archivo?: File }[] = [];
+  private readonly imagenesEliminadas = new Set<string>();
 
   // ============================================================
   // ESTADO
@@ -72,7 +72,7 @@ export class VerSedeComponent implements OnInit {
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
-    this.idSede = idParam !== null && idParam !== '' ? Number(idParam) : null;
+    this.idSede = idParam !== null && idParam !== '' ? idParam : null;
 
     // Si venimos del menú principal, la sede llega por el estado de
     // navegación y evitamos un request extra.
@@ -86,7 +86,7 @@ export class VerSedeComponent implements OnInit {
       return;
     }
 
-    if (this.idSede === null || Number.isNaN(this.idSede)) {
+    if (this.idSede === null) {
       this.error = 'No se encontró la sede.';
       return;
     }

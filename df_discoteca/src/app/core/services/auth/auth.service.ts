@@ -53,15 +53,15 @@ export class AuthService {
   // DISCOTECA equivale al id de la discoteca.
   // ============================================================
 
-  getUsuarioId(): number | null {
+  getUsuarioId(): string | null {
     const token = this.getToken();
     if (!token) return null;
 
     const payload = this.decodificarToken(token);
     const userId = payload?.['userId'];
 
-    if (typeof userId === 'number') return userId;
-    if (typeof userId === 'string' && userId.trim() !== '') return Number(userId);
+    if (typeof userId === 'number') return String(userId);
+    if (typeof userId === 'string' && userId.trim() !== '') return userId;
 
     return null;
   }
